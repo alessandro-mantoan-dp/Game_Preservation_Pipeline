@@ -1,0 +1,13 @@
+﻿# Configurazione locale privata
+config/settings.json
+
+# Dati generati localmente
+output_json/*.json
+output_xml/*.xml
+database/*.db
+
+# Cache Python e ambienti virtuali
+__pycache__/
+*.py[cod]
+.venv/
+venv/

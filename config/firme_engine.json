@@ -1,0 +1,26 @@
+{
+    "librerie_chiave": {
+        "unityplayer.dll": "Unity",
+        "godot.pck": "Godot",
+        "fna.dll": "FNA (XNA Framework)",
+        "monogame.framework.dll": "MonoGame",
+        "crysystem.dll": "CryEngine",
+        "dunia.dll": "Ubisoft Dunia Engine",
+        "frostbite": "EA Frostbite Engine"
+    },
+    "estensioni_chiave": {
+        "BioWare Eclipse / Aurora Engine": [".rim", ".erf", ".tlk"],
+        "Bethesda Gamebryo / Creation Engine": [".bsa", ".esm"],
+        "Bethesda Creation Engine 2": [".ba2", ".esm"],
+        "IO Interactive Glacier Engine": [".whd", ".zip"],
+        "Firefly Studios 2D Isometric Engine": [".tgx", ".gm1", ".aiv"],
+        "CD Projekt REDengine": [".w2strings", ".bundle"],
+        "CD Projekt REDengine 4": [".archive"],
+        "Ubisoft Anvil Engine": [".forge"],
+        "Valve Source Engine": [".vpk", ".bsp"],
+        "id Tech 4 / 5": [".pk4"],
+        "Larian Divinity Engine": [".pak", ".lsf"],
+        "Infinity Engine (BioWare/Black Isle)": [".bif", ".key", ".2da"],
+        "Unreal Engine 3": [".upk", ".umap"]
+    }
+}
