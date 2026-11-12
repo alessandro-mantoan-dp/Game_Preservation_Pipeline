@@ -2,6 +2,8 @@
 
 Un sistema modulare in Python per l'estrazione forense dei metadati tecnici, la standardizzazione archivistica e l'indicizzazione ricercabile di collezioni videoludiche DRM-free (es. GOG).
 
+**Live Demo Interattiva:** [Esplora Archivio Online]([https://streamlit.app](https://game-preservation-pipeline.streamlit.app/))
+
 ## Architettura del Progetto
 
 La pipeline è suddivisa in **5 moduli indipendenti** progettati secondo i principi della *Digital Curation* e del modello OAIS:
