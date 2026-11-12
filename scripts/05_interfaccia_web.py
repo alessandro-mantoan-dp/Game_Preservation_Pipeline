@@ -13,9 +13,22 @@ st.set_page_config(
     layout="wide"
 )
 
-PERCORSO_DB = BASE_DIR / "database" / "archivio_giochi.db"
-CARTELLA_XML = BASE_DIR / "output_xml"
+PERCORSO_DB_LOCALE = BASE_DIR / "database" / "archivio_giochi.db"
+CARTELLA_XML_LOCALE = BASE_DIR / "output_xml"
+FILE_SETTINGS = BASE_DIR / "config" / "settings.json"
+
+PERCORSO_DB_DEMO = BASE_DIR / "demo_data" / "demo_archivio.db"
+CARTELLA_XML_DEMO = BASE_DIR / "demo_data" / "xml"
 CARTELLA_SCRIPTS = BASE_DIR / "scripts"
+
+MODALITA_LOCALE = FILE_SETTINGS.exists() and PERCORSO_DB_LOCALE.exists()
+
+if MODALITA_LOCALE:
+    PERCORSO_DB = PERCORSO_DB_LOCALE
+    CARTELLA_XML = CARTELLA_XML_LOCALE
+else:
+    PERCORSO_DB = PERCORSO_DB_DEMO
+    CARTELLA_XML = CARTELLA_XML_DEMO
 
 def estrai_mb(testo_estensione: str) -> float:
     if not testo_estensione:
@@ -89,13 +102,16 @@ st.markdown("Catalogo basato sugli standard internazionali **Dublin Core**, **MO
 
 st.sidebar.header("🔍 Ricerca e Filtri Avanzati")
 
-if st.sidebar.button("🔄 Sincronizza Libreria GOG", use_container_width=True):
-    with st.spinner("Scansione cartelle GOG, generazione XML e aggiornamento database in corso..."):
-        subprocess.run([sys.executable, str(CARTELLA_SCRIPTS / "01_estrattore_gog.py")], check=True)
-        subprocess.run([sys.executable, str(CARTELLA_SCRIPTS / "02_generatore_xml.py")], check=True)
-        subprocess.run([sys.executable, str(CARTELLA_SCRIPTS / "03_popola_database.py")], check=True)
-    st.success("Archivio aggiornato con successo!")
-    st.rerun()
+if MODALITA_LOCALE:
+    if st.sidebar.button("🔄 Sincronizza Libreria GOG", use_container_width=True):
+        with st.spinner("Scansione cartelle GOG, generazione XML e aggiornamento database in corso..."):
+            subprocess.run([sys.executable, str(CARTELLA_SCRIPTS / "01_estrattore_gog.py")], check=True)
+            subprocess.run([sys.executable, str(CARTELLA_SCRIPTS / "02_generatore_xml.py")], check=True)
+            subprocess.run([sys.executable, str(CARTELLA_SCRIPTS / "03_popola_database.py")], check=True)
+        st.success("Archivio aggiornato con successo!")
+        st.rerun()
+else:
+    st.sidebar.info("🌐 **Modalità Demo Pubblica**\n\nStai esplorando un catalogo pre-indicizzato. Per scansionare la tua libreria locale, clona il repository su PC.")
 
 st.sidebar.divider()
 

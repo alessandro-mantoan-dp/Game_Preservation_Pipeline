@@ -1,0 +1,77 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<archivio:record xmlns:archivio="http://mioarchivio.local/schema/v1" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:mods="http://www.loc.gov/mods/v3" xmlns:premis="http://www.loc.gov/premis/v3" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <dc:metadata>
+    <dc:title>Stronghold Crusader Extreme HD</dc:title>
+    <dc:creator>Firefly Studios</dc:creator>
+    <dc:publisher>Take-Two Interactive / GOG.com</dc:publisher>
+    <dc:date>2002-09-18</dc:date>
+    <dc:type>Software / Video Game</dc:type>
+    <dc:format>Digital Download (DRM-Free)</dc:format>
+    <dc:identifier>GOG-1207658713</dc:identifier>
+    <dc:language>Italian</dc:language>
+  </dc:metadata>
+  <mods:mods version="3.8">
+    <mods:titleInfo>
+      <mods:title>Stronghold Crusader Extreme HD</mods:title>
+    </mods:titleInfo>
+    <mods:name type="corporate">
+      <mods:namePart>Firefly Studios</mods:namePart>
+      <mods:role>
+        <mods:roleTerm type="text">developer</mods:roleTerm>
+      </mods:role>
+    </mods:name>
+    <mods:originInfo>
+      <mods:dateIssued encoding="iso8601">2002-09-18</mods:dateIssued>
+      <mods:dateCreated encoding="iso8601">2018-03-19T10:41:01+00:00</mods:dateCreated>
+      <mods:edition>Version 1, 1, 0, 1</mods:edition>
+    </mods:originInfo>
+    <mods:physicalDescription>
+      <mods:digitalOrigin>born digital</mods:digitalOrigin>
+      <mods:extent>3730 files (842.74 MB)</mods:extent>
+    </mods:physicalDescription>
+    <mods:note type="technical composition">File formats composition: .wav (2518), .tgx (471), .gm1 (199), .map (143), .aiv (128), .bik (122), .raw (81), .mp3 (12), .html (8), .ani (6), .pdf (5), .cur (4), .dll (4), .exe (4), .ico (3), .ini (3), .cfg (2), .dat (2), .hlp (2), .sav (1), .tex (1), .csv (1), .bmp (1), .hashdb (1), .id (1), .info (1), .script (1), .lnk (1), .doc (1), .msg (1), .txt (1), .png (1)</mods:note>
+  </mods:mods>
+  <premis:premis version="3.0">
+    <premis:object xsi:type="premis:file">
+      <premis:objectIdentifier>
+        <premis:objectIdentifierType>relative_path</premis:objectIdentifierType>
+        <premis:objectIdentifierValue>Stronghold Crusader.exe</premis:objectIdentifierValue>
+      </premis:objectIdentifier>
+      <premis:objectCharacteristics>
+        <premis:fixity>
+          <premis:messageDigestAlgorithm>SHA-256</premis:messageDigestAlgorithm>
+          <premis:messageDigest>3bb0a8c1e72331b3a30a5aa93ed94beca0081b476b04c1960e26d5b45387ac5a</premis:messageDigest>
+        </premis:fixity>
+        <premis:size>8376320</premis:size>
+        <premis:format>
+          <premis:formatDesignation>
+            <premis:formatName>Windows Portable Executable (x86 (32-bit))</premis:formatName>
+          </premis:formatDesignation>
+        </premis:format>
+      </premis:objectCharacteristics>
+    </premis:object>
+    <premis:environment>
+      <premis:environmentCharacteristic>known to work</premis:environmentCharacteristic>
+      <premis:environmentPurpose>render / execute</premis:environmentPurpose>
+      <premis:software>
+        <premis:swName>Firefly Studios 2D Isometric Engine</premis:swName>
+        <premis:swType>game engine</premis:swType>
+      </premis:software>
+      <premis:software>
+        <premis:swName>Windows (x86 (32-bit)) - Wrapper: Nessuno (Nativo Windows)</premis:swName>
+        <premis:swType>operating environment</premis:swType>
+      </premis:software>
+    </premis:environment>
+    <premis:event>
+      <premis:eventIdentifier>
+        <premis:eventIdentifierType>local</premis:eventIdentifierType>
+        <premis:eventIdentifierValue>EVT-1207658713-001</premis:eventIdentifierValue>
+      </premis:eventIdentifier>
+      <premis:eventType>metadata extraction and fixity calculation</premis:eventType>
+      <premis:eventDateTime>2026-11-12T15:03:04.459250+00:00</premis:eventDateTime>
+      <premis:eventDetailInformation>
+        <premis:eventDetail>Engine identified via: Firme estensioni (.tgx, .gm1, .aiv)</premis:eventDetail>
+      </premis:eventDetailInformation>
+    </premis:event>
+  </premis:premis>
+</archivio:record>

@@ -1,0 +1,77 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<archivio:record xmlns:archivio="http://mioarchivio.local/schema/v1" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:mods="http://www.loc.gov/mods/v3" xmlns:premis="http://www.loc.gov/premis/v3" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <dc:metadata>
+    <dc:title>Alpha Protocol</dc:title>
+    <dc:creator>Obsidian Entertainment, Inc.</dc:creator>
+    <dc:publisher>GOG.com (Distributore) / © 2010 Obsidian Entertainment, Inc. All rights reserved.</dc:publisher>
+    <dc:date>2010-05-27</dc:date>
+    <dc:type>Software / Video Game</dc:type>
+    <dc:format>Digital Download (DRM-Free)</dc:format>
+    <dc:identifier>GOG-1360785671</dc:identifier>
+    <dc:language>Italian</dc:language>
+  </dc:metadata>
+  <mods:mods version="3.8">
+    <mods:titleInfo>
+      <mods:title>Alpha Protocol</mods:title>
+    </mods:titleInfo>
+    <mods:name type="corporate">
+      <mods:namePart>Obsidian Entertainment, Inc.</mods:namePart>
+      <mods:role>
+        <mods:roleTerm type="text">developer</mods:roleTerm>
+      </mods:role>
+    </mods:name>
+    <mods:originInfo>
+      <mods:dateIssued encoding="iso8601">2010-05-27</mods:dateIssued>
+      <mods:dateCreated encoding="iso8601">2023-09-13T21:20:13+00:00</mods:dateCreated>
+      <mods:edition>Version 1, 1, 0, 0</mods:edition>
+    </mods:originInfo>
+    <mods:physicalDescription>
+      <mods:digitalOrigin>born digital</mods:digitalOrigin>
+      <mods:extent>9358 files (11263.45 MB)</mods:extent>
+    </mods:physicalDescription>
+    <mods:note type="technical composition">File formats composition: .upk (3311), .umap (981), .deu (609), .pol (603), .rus (602), .cze (601), .fra (595), .ita (591), .spa (589), .int (562), .usf (118), .sfd (88), .ini (27), .dll (14), .hun (12), .jpn (12), .u (11), .html (6), .bmp (4), .ico (3), .txt (3), .exe (3), .css (3), .bin (2), .hashdb (1), .info (1), .script (1), .lnk (1), .dat (1), .msg (1), .bri (1), .esn (1)</mods:note>
+  </mods:mods>
+  <premis:premis version="3.0">
+    <premis:object xsi:type="premis:file">
+      <premis:objectIdentifier>
+        <premis:objectIdentifierType>relative_path</premis:objectIdentifierType>
+        <premis:objectIdentifierValue>Binaries\APGame.exe</premis:objectIdentifierValue>
+      </premis:objectIdentifier>
+      <premis:objectCharacteristics>
+        <premis:fixity>
+          <premis:messageDigestAlgorithm>SHA-256</premis:messageDigestAlgorithm>
+          <premis:messageDigest>8a82e37eb8c02cb482d082e3a7da3b198545e39a78c5577dfa8fe3cee0196e93</premis:messageDigest>
+        </premis:fixity>
+        <premis:size>20930560</premis:size>
+        <premis:format>
+          <premis:formatDesignation>
+            <premis:formatName>Windows Portable Executable (x86 (32-bit))</premis:formatName>
+          </premis:formatDesignation>
+        </premis:format>
+      </premis:objectCharacteristics>
+    </premis:object>
+    <premis:environment>
+      <premis:environmentCharacteristic>known to work</premis:environmentCharacteristic>
+      <premis:environmentPurpose>render / execute</premis:environmentPurpose>
+      <premis:software>
+        <premis:swName>Unreal Engine 3</premis:swName>
+        <premis:swType>game engine</premis:swType>
+      </premis:software>
+      <premis:software>
+        <premis:swName>Windows (x86 (32-bit)) - Wrapper: Nessuno (Nativo Windows)</premis:swName>
+        <premis:swType>operating environment</premis:swType>
+      </premis:software>
+    </premis:environment>
+    <premis:event>
+      <premis:eventIdentifier>
+        <premis:eventIdentifierType>local</premis:eventIdentifierType>
+        <premis:eventIdentifierValue>EVT-1360785671-001</premis:eventIdentifierValue>
+      </premis:eventIdentifier>
+      <premis:eventType>metadata extraction and fixity calculation</premis:eventType>
+      <premis:eventDateTime>2026-11-12T15:02:50.004300+00:00</premis:eventDateTime>
+      <premis:eventDetailInformation>
+        <premis:eventDetail>Engine identified via: Firme estensioni (.upk, .umap)</premis:eventDetail>
+      </premis:eventDetailInformation>
+    </premis:event>
+  </premis:premis>
+</archivio:record>

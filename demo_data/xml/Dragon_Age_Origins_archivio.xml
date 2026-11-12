@@ -1,0 +1,77 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<archivio:record xmlns:archivio="http://mioarchivio.local/schema/v1" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:mods="http://www.loc.gov/mods/v3" xmlns:premis="http://www.loc.gov/premis/v3" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <dc:metadata>
+    <dc:title>Dragon Age: Origins - Ultimate Edition</dc:title>
+    <dc:creator>BioWare</dc:creator>
+    <dc:publisher>GOG.com (Distributore) / © 2011 EA International (Studio and Publishing) Ltd.</dc:publisher>
+    <dc:date>2011-11-02</dc:date>
+    <dc:type>Software / Video Game</dc:type>
+    <dc:format>Digital Download (DRM-Free)</dc:format>
+    <dc:identifier>GOG-1949616134</dc:identifier>
+    <dc:language>English</dc:language>
+  </dc:metadata>
+  <mods:mods version="3.8">
+    <mods:titleInfo>
+      <mods:title>Dragon Age: Origins - Ultimate Edition</mods:title>
+    </mods:titleInfo>
+    <mods:name type="corporate">
+      <mods:namePart>BioWare</mods:namePart>
+      <mods:role>
+        <mods:roleTerm type="text">developer</mods:roleTerm>
+      </mods:role>
+    </mods:name>
+    <mods:originInfo>
+      <mods:dateIssued encoding="iso8601">2011-11-02</mods:dateIssued>
+      <mods:dateCreated encoding="iso8601">2011-11-02T19:43:15+00:00</mods:dateCreated>
+      <mods:edition>Version 1.05.13263.0</mods:edition>
+    </mods:originInfo>
+    <mods:physicalDescription>
+      <mods:digitalOrigin>born digital</mods:digitalOrigin>
+      <mods:extent>32429 files (60452.8 MB)</mods:extent>
+    </mods:physicalDescription>
+    <mods:note type="technical composition">File formats composition: .rim (10009), .fsb (9052), .fev (9020), .tlk (1501), .erf (643), .htm (598), .gif (453), .arl (216), .jpg (152), .opf (132), .bik (85), .dll (70), .cur (70), .cif (49), .xml (45), .dds (43), .bmp (43), .css (35), .rtf (32), .ini (29), .js (29), .txt (27), .exe (16), .log (11), .msp (9), .cub (8), .cut (8), .ico (6), .bin (6), .dat (5), .hhk (2), .lng (2), .msi (2), .hashdb (1), .info (1), .script (1), .lnk (1), .pdf (1), .cmd (1), .msg (1), .wma (1), .wav (1), .ews (1), .glo (1), .hhc (1), .ppf (1), .stp (1), .syn (1), .cab (1), .jar (1), .skn (1), .chm (1), .sdb (1), .pdi (1)</mods:note>
+  </mods:mods>
+  <premis:premis version="3.0">
+    <premis:object xsi:type="premis:file">
+      <premis:objectIdentifier>
+        <premis:objectIdentifierType>relative_path</premis:objectIdentifierType>
+        <premis:objectIdentifierValue>bin_ship\DAOrigins.exe</premis:objectIdentifierValue>
+      </premis:objectIdentifier>
+      <premis:objectCharacteristics>
+        <premis:fixity>
+          <premis:messageDigestAlgorithm>SHA-256</premis:messageDigestAlgorithm>
+          <premis:messageDigest>7e719cac4b6c138ec9114a6089e651c5409c77cffcf0bc58b8ef633c1289859c</premis:messageDigest>
+        </premis:fixity>
+        <premis:size>10217312</premis:size>
+        <premis:format>
+          <premis:formatDesignation>
+            <premis:formatName>Windows Portable Executable (x86 (32-bit))</premis:formatName>
+          </premis:formatDesignation>
+        </premis:format>
+      </premis:objectCharacteristics>
+    </premis:object>
+    <premis:environment>
+      <premis:environmentCharacteristic>known to work</premis:environmentCharacteristic>
+      <premis:environmentPurpose>render / execute</premis:environmentPurpose>
+      <premis:software>
+        <premis:swName>BioWare Eclipse / Aurora Engine</premis:swName>
+        <premis:swType>game engine</premis:swType>
+      </premis:software>
+      <premis:software>
+        <premis:swName>Windows (x86 (32-bit)) - Wrapper: Nessuno (Nativo Windows)</premis:swName>
+        <premis:swType>operating environment</premis:swType>
+      </premis:software>
+    </premis:environment>
+    <premis:event>
+      <premis:eventIdentifier>
+        <premis:eventIdentifierType>local</premis:eventIdentifierType>
+        <premis:eventIdentifierValue>EVT-1949616134-001</premis:eventIdentifierValue>
+      </premis:eventIdentifier>
+      <premis:eventType>metadata extraction and fixity calculation</premis:eventType>
+      <premis:eventDateTime>2026-11-12T15:02:57.706375+00:00</premis:eventDateTime>
+      <premis:eventDetailInformation>
+        <premis:eventDetail>Engine identified via: Firme estensioni (.rim, .erf, .tlk)</premis:eventDetail>
+      </premis:eventDetailInformation>
+    </premis:event>
+  </premis:premis>
+</archivio:record>
