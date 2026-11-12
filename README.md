@@ -51,8 +51,8 @@ Game_Preservation_Pipeline/
 
 1. **Clona il repository e installa le dipendenze:**
    ```bash
-   git clone https://github.com
-   cd game-preservation-pipeline
+   git clone https://github.com/alessandro-mantoan-dp/Game_Preservation_Pipeline.git
+   cd Game_Preservation_Pipeline
    pip install -r requirements.txt
    ```
 
