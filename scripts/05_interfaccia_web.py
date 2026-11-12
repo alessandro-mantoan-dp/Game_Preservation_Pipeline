@@ -97,10 +97,10 @@ def carica_eventi_gioco(id_gioco: str):
     conn.close()
     return eventi
 
-st.title("🕹️ Archivio di Preservazione Digitale — Videogiochi")
+st.title("Archivio di Preservazione Digitale — Videogiochi")
 st.markdown("Catalogo basato sugli standard internazionali **Dublin Core**, **MODS** e **PREMIS**.")
 
-st.sidebar.header("🔍 Ricerca e Filtri Avanzati")
+st.sidebar.header("Ricerca e Filtri Avanzati")
 
 if MODALITA_LOCALE:
     if st.sidebar.button("🔄 Sincronizza Libreria GOG", use_container_width=True):
@@ -111,7 +111,7 @@ if MODALITA_LOCALE:
         st.success("Archivio aggiornato con successo!")
         st.rerun()
 else:
-    st.sidebar.info("🌐 **Modalità Demo Pubblica**\n\nStai esplorando un catalogo pre-indicizzato. Per scansionare la tua libreria locale, clona il repository su PC.")
+    st.sidebar.info("**Modalità Demo Pubblica**\n\nStai esplorando un catalogo pre-indicizzato. Per scansionare la tua libreria locale, clona il repository su PC.")
 
 st.sidebar.divider()
 
@@ -213,7 +213,7 @@ st.divider()
 if not giochi_filtrati:
     st.warning("Nessun gioco corrisponde alla combinazione di filtri selezionata.")
 else:
-    st.subheader("📋 Risultati della ricerca")
+    st.subheader("Risultati della ricerca")
     tabella_vista = [
         {
             "ID Archivio": g["id_gioco"],
@@ -229,7 +229,7 @@ else:
     st.dataframe(tabella_vista, use_container_width=True, hide_index=True)
 
     st.divider()
-    st.subheader("🗂️ Ispezione Scheda Archivistica Dettagliata")
+    st.subheader("Ispezione Scheda Archivistica Dettagliata")
     
     opzioni_selezione = {f"{g['titolo']} ({g['id_gioco']})": g for g in giochi_filtrati}
     etichetta_selezionata = st.selectbox("Seleziona un'opera per ispezionare tutti i metadati:", list(opzioni_selezione.keys()))
