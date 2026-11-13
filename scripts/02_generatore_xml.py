@@ -230,6 +230,25 @@ def genera_xml_da_json(file_json: Path, cartella_out: Path, file_override: Path)
     aggiungi_elemento(rights_granted, NS_PREMIS, "act", "replicate / migrate / emulate")
     aggiungi_elemento(rights_granted, NS_PREMIS, "restriction", "Uso strettamente personale e di preservazione privata; vietata la ridistribuzione pubblica dei binari.")
 
+    # 5. PREMIS SOURCE / SIP (Installer Offline GOG)
+    sip_info = dati.get("installer_offline_sip", {})
+    if sip_info.get("presente"):
+        for f_inst in sip_info.get("files", []):
+            obj_sip = aggiungi_elemento(sezione_premis, NS_PREMIS, "object", attributi={f"{{{NS_XSI}}}type": "premis:file"})
+            sip_id = aggiungi_elemento(obj_sip, NS_PREMIS, "objectIdentifier")
+            aggiungi_elemento(sip_id, NS_PREMIS, "objectIdentifierType", "offline_installer_sip")
+            aggiungi_elemento(sip_id, NS_PREMIS, "objectIdentifierValue", f_inst.get("nome_file"))
+
+            sip_char = aggiungi_elemento(obj_sip, NS_PREMIS, "objectCharacteristics")
+            sip_fix = aggiungi_elemento(sip_char, NS_PREMIS, "fixity")
+            aggiungi_elemento(sip_fix, NS_PREMIS, "messageDigestAlgorithm", "SHA-256")
+            aggiungi_elemento(sip_fix, NS_PREMIS, "messageDigest", f_inst.get("sha256"))
+            aggiungi_elemento(sip_char, NS_PREMIS, "size", f_inst.get("dimensione_byte"))
+
+            sip_fmt = aggiungi_elemento(sip_char, NS_PREMIS, "format")
+            sip_fmt_des = aggiungi_elemento(sip_fmt, NS_PREMIS, "formatDesignation")
+            aggiungi_elemento(sip_fmt_des, NS_PREMIS, "formatName", "GOG Offline Installer Package (SIP)")
+
     # Validazione Formale XSD prima del salvataggio
     percorso_xsd = BASE_DIR / "config" / "archivio_schema.xsd"
     esito_valido, messaggio_xsd = valida_xml_con_xsd(radice, percorso_xsd)

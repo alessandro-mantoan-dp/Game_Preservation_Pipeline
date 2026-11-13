@@ -1,3 +1,4 @@
 {
-    "gog_library_path": "C:\\Path\\To\\Your\\GOG Games"
+    "gog_library_path": "C:\\Program Files (x86)\\GOG Galaxy\\Games",
+    "gog_installers_path": "C:\\GOG_Installers"
 }

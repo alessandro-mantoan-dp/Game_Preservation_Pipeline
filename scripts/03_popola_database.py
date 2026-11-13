@@ -151,6 +151,20 @@ def importa_xml_nel_db(file_xml: Path, file_db: Path):
                 VALUES (?, 'rights_management', 'license', ?, ?);
             """, (id_gioco, desc_diritti, data_rilascio))
 
+    # Estrae eventuali file dell'Installer Offline GOG (SIP)
+    for obj_sip in radice.findall(".//premis:object", namespaces=NSMAP):
+        tipo_id = obj_sip.findtext("premis:objectIdentifier/premis:objectIdentifierType", namespaces=NSMAP)
+        if tipo_id == "offline_installer_sip":
+            nome_inst = obj_sip.findtext("premis:objectIdentifier/premis:objectIdentifierValue", namespaces=NSMAP)
+            hash_inst = obj_sip.findtext("premis:objectCharacteristics/premis:fixity/premis:messageDigest", namespaces=NSMAP)
+            size_inst = obj_sip.findtext("premis:objectCharacteristics/premis:size", namespaces=NSMAP) or "0"
+            dim_mb_inst = round(int(size_inst) / (1024 * 1024), 2)
+            desc_sip = f"{nome_inst} ({dim_mb_inst} MB) — SHA-256: {hash_inst}"
+            cursore.execute("""
+                INSERT INTO ambienti_eventi (id_gioco, categoria, tipo, descrizione, data_registrazione)
+                VALUES (?, 'offline_installer_sip', 'source_package', ?, ?);
+            """, (id_gioco, desc_sip, data_rilascio))
+
     conn.commit()
     conn.close()
     print(f"Importato nel DB: '{titolo}' ({id_gioco})")

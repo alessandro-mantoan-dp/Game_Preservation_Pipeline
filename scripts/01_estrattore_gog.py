@@ -103,6 +103,47 @@ def file_da_ignorare(percorso_file: Path, radice_gioco: Path, cartelle_escluse: 
     parti_relative = {p.lower() for p in percorso_file.relative_to(radice_gioco).parts[:-1]}
     return bool(parti_relative.intersection(cartelle_escluse))
 
+def cerca_installer_offline(cartella_installers: Path, titolo_gioco: str, nome_cartella: str) -> list:
+    """
+    Cerca i file dell'installer offline GOG (setup_*.exe e *.bin) associati al gioco,
+    calcolandone dimensione e impronta SHA-256.
+    """
+    if not cartella_installers or not cartella_installers.exists():
+        return []
+
+    chiavi_ricerca = {
+        titolo_gioco.lower().replace(":", "").replace("-", " ").strip(),
+        nome_cartella.lower().replace("_", " ").replace("-", " ").strip()
+    }
+    chiavi_pulite = {
+        "".join(c for c in k if c.isalnum()) for k in chiavi_ricerca if k
+    }
+
+    file_trovati = []
+    for elemento in cartella_installers.rglob("*"):
+        if not elemento.is_file():
+            continue
+        est = elemento.suffix.lower()
+        if est not in (".exe", ".bin"):
+            continue
+        if est == ".exe" and not elemento.name.lower().startswith("setup_"):
+            continue
+
+        percorso_norm = "".join(c for c in str(elemento.relative_to(cartella_installers)).lower() if c.isalnum())
+        if any(chiave in percorso_norm for chiave in chiavi_pulite if len(chiave) >= 5):
+            file_trovati.append(elemento)
+
+    risultati = []
+    for f_inst in sorted(file_trovati, key=lambda x: x.name):
+        print(f"   Trovato installer offline: {f_inst.name} (calcolo SHA-256)...", flush=True)
+        risultati.append({
+            "nome_file": f_inst.name,
+            "percorso_relativo": str(f_inst.relative_to(cartella_installers)).replace("\\", "/"),
+            "dimensione_byte": f_inst.stat().st_size,
+            "sha256": calcola_sha256(f_inst)
+        })
+    return risultati
+
 def rileva_tecnologie(lista_file: list, conteggio_estensioni: Counter, percorso_config: Path) -> dict:
     regole = carica_dizionario_firme(percorso_config)
     nomi_minuscoli = {f.name.lower() for f in lista_file}
@@ -211,7 +252,7 @@ def registra_report_ingest(db_path: Path, id_gioco: str, nome_manifest: str, has
     aggiorna_file_condition_report(db_path, id_gioco)
 
 def esegui_estrazione_modulo1(radice: Path, cartella_out: Path, percorso_config: Path):
-    print(f"Avvio scansione di: {radice.name}...")
+    print(f"Avvio scansione di: {radice.name}...", flush=True)
 
     cartelle_escl, estensioni_escl = carica_esclusioni(BASE_DIR / "config" / "esclusioni_audit.json")
     tutti_i_file = [
@@ -222,6 +263,15 @@ def esegui_estrazione_modulo1(radice: Path, cartella_out: Path, percorso_config:
     conteggio_estensioni = Counter(f.suffix.lower() for f in tutti_i_file if f.suffix)
 
     info_gog = leggi_manifest_gog(radice)
+    file_settings = BASE_DIR / "config" / "settings.json"
+    dir_installers = None
+    if file_settings.exists():
+        with open(file_settings, "r", encoding="utf-8") as fs:
+            cfg_s = json.load(fs)
+            if cfg_s.get("gog_installers_path"):
+                dir_installers = Path(cfg_s["gog_installers_path"])
+
+    lista_installer = cerca_installer_offline(dir_installers, info_gog.get("titolo_ufficiale", ""), radice.name)
 
     percorso_launcher = None
     if info_gog.get("trovato") and info_gog.get("eseguibile_dichiarato"):
@@ -230,7 +280,7 @@ def esegui_estrazione_modulo1(radice: Path, cartella_out: Path, percorso_config:
     percorso_exe_reale = trova_eseguibile_reale(tutti_i_file, percorso_launcher)
 
     nome_exe_stampa = percorso_exe_reale.name if percorso_exe_reale else "Nessun eseguibile trovato"
-    print(f"Analisi dell'eseguibile principale ({nome_exe_stampa}) in corso...")
+    print(f"Analisi dell'eseguibile principale ({nome_exe_stampa}) in corso...", flush=True)
     dettagli_pe = ispeziona_header_pe(percorso_exe_reale)
     hash_exe = calcola_sha256(percorso_exe_reale) if (percorso_exe_reale and percorso_exe_reale.exists()) else None
 
@@ -256,7 +306,13 @@ def esegui_estrazione_modulo1(radice: Path, cartella_out: Path, percorso_config:
             "sha256": hash_exe,
             "pe_header": dettagli_pe
         },
-        "ambiente_tecnico": tecnologie
+        "ambiente_tecnico": tecnologie,
+        "installer_offline_sip": {
+            "presente": len(lista_installer) > 0,
+            "totale_file": len(lista_installer),
+            "dimensione_totale_mb": round(sum(i["dimensione_byte"] for i in lista_installer) / (1024 * 1024), 2),
+            "files": lista_installer
+        }
     }
 
     cartella_out.mkdir(parents=True, exist_ok=True)
@@ -266,55 +322,11 @@ def esegui_estrazione_modulo1(radice: Path, cartella_out: Path, percorso_config:
     with open(file_destinazione, "w", encoding="utf-8") as f:
         json.dump(documento_finale, f, indent=4, ensure_ascii=False)
 
-    print(f"Completato! Salvato in: {file_destinazione.name}")
+    print(f"Completato! Salvato in: {file_destinazione.name}", flush=True)
 
     # Generazione del Manifest Integrale SHA-256 (immutabile dopo la prima acquisizione)
     nome_manifest_out = f"{radice.name.replace(' ', '_')}_manifest_sha256.json"
     file_manifest_dest = cartella_out / nome_manifest_out
-
-    if file_manifest_dest.exists() and "--forza" not in sys.argv:
-        print(f"Manifest integrale già presente ({file_manifest_dest.name}): baseline originale preservata.")
-    else:
-        print(f"Calcolo impronte SHA-256 per tutti i {len(tutti_i_file)} file...")
-        manifest_file = {}
-        for f in tutti_i_file:
-            percorso_rel_str = str(f.relative_to(radice)).replace("\\", "/")
-            manifest_file[percorso_rel_str] = {
-                "dimensione_byte": f.stat().st_size,
-                "sha256": calcola_sha256(f)
-            }
-
-        documento_manifest = {
-            "gog_game_id": f"GOG-{info_gog.get('gog_game_id')}",
-            "titolo": info_gog.get("titolo_ufficiale"),
-            "data_creazione_manifest_utc": datetime.now(timezone.utc).isoformat(),
-            "totale_file_tracciati": len(manifest_file),
-            "files": manifest_file
-        }
-
-        with open(file_manifest_dest, "w", encoding="utf-8") as fm:
-            json.dump(documento_manifest, fm, indent=2, ensure_ascii=False)
-
-        print(f"Manifest integrale salvato in: {file_manifest_dest.name}")
-
-        with open(file_manifest_dest, "w", encoding="utf-8") as fm:
-            json.dump(documento_manifest, fm, indent=2, ensure_ascii=False)
-
-        hash_del_manifest = calcola_sha256(file_manifest_dest)
-        id_gioco_completo = f"GOG-{info_gog.get('gog_game_id')}"
-        è_aggiornamento = "--forza" in sys.argv
-        
-        registra_report_ingest(
-            BASE_DIR / "database" / "archivio_giochi.db",
-            id_gioco_completo,
-            nome_manifest_out,
-            hash_del_manifest,
-            len(manifest_file),
-            round(peso_totale_byte / (1024 * 1024), 2),
-            è_aggiornamento
-        )
-
-        print(f"Manifest integrale salvato e registrato nel Condition Report: {file_manifest_dest.name}")
 
     if file_manifest_dest.exists() and "--forza" not in sys.argv:
         print(f"Manifest integrale già presente ({file_manifest_dest.name}): baseline originale preservata.", flush=True)

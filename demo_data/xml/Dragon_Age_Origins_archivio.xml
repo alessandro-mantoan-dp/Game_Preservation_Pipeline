@@ -72,7 +72,7 @@
         <premis:eventIdentifierValue>EVT-1949616134-001</premis:eventIdentifierValue>
       </premis:eventIdentifier>
       <premis:eventType>metadata extraction and fixity calculation</premis:eventType>
-      <premis:eventDateTime>2026-11-13T16:02:02.080460+00:00</premis:eventDateTime>
+      <premis:eventDateTime>2026-11-13T17:30:48.916921+00:00</premis:eventDateTime>
     </premis:event>
     <premis:event>
       <premis:eventIdentifier>
@@ -80,7 +80,7 @@
         <premis:eventIdentifierValue>EVT-1949616134-PLAN</premis:eventIdentifierValue>
       </premis:eventIdentifier>
       <premis:eventType>preservation planning [Risk: Da valutare]</premis:eventType>
-      <premis:eventDateTime>2026-11-13T16:02:02.080460+00:00</premis:eventDateTime>
+      <premis:eventDateTime>2026-11-13T17:30:48.916921+00:00</premis:eventDateTime>
       <premis:eventDetailInformation>
         <premis:eventDetail>Pianificazione tecnica pendente (valutazione caso per caso)</premis:eventDetail>
       </premis:eventDetailInformation>
@@ -105,5 +105,131 @@
         </premis:rightsGranted>
       </premis:rightsStatement>
     </premis:rights>
+    <premis:object xsi:type="premis:file">
+      <premis:objectIdentifier>
+        <premis:objectIdentifierType>offline_installer_sip</premis:objectIdentifierType>
+        <premis:objectIdentifierValue>setup_dragon_age_origins_-_ultimate_edition_1.05_compatcfg_(91980)-1.bin</premis:objectIdentifierValue>
+      </premis:objectIdentifier>
+      <premis:objectCharacteristics>
+        <premis:fixity>
+          <premis:messageDigestAlgorithm>SHA-256</premis:messageDigestAlgorithm>
+          <premis:messageDigest>b1a4cfe9f546bf6ba038d5fb5c54a3fabf19ccaf50595df58ad6ce5071c24f21</premis:messageDigest>
+        </premis:fixity>
+        <premis:size>4289675262</premis:size>
+        <premis:format>
+          <premis:formatDesignation>
+            <premis:formatName>GOG Offline Installer Package (SIP)</premis:formatName>
+          </premis:formatDesignation>
+        </premis:format>
+      </premis:objectCharacteristics>
+    </premis:object>
+    <premis:object xsi:type="premis:file">
+      <premis:objectIdentifier>
+        <premis:objectIdentifierType>offline_installer_sip</premis:objectIdentifierType>
+        <premis:objectIdentifierValue>setup_dragon_age_origins_-_ultimate_edition_1.05_compatcfg_(91980)-2.bin</premis:objectIdentifierValue>
+      </premis:objectIdentifier>
+      <premis:objectCharacteristics>
+        <premis:fixity>
+          <premis:messageDigestAlgorithm>SHA-256</premis:messageDigestAlgorithm>
+          <premis:messageDigest>7cc79817bdbd57ab1393c9088a002f1578f1dfb65f67928124e34999789c2ef9</premis:messageDigest>
+        </premis:fixity>
+        <premis:size>4294967294</premis:size>
+        <premis:format>
+          <premis:formatDesignation>
+            <premis:formatName>GOG Offline Installer Package (SIP)</premis:formatName>
+          </premis:formatDesignation>
+        </premis:format>
+      </premis:objectCharacteristics>
+    </premis:object>
+    <premis:object xsi:type="premis:file">
+      <premis:objectIdentifier>
+        <premis:objectIdentifierType>offline_installer_sip</premis:objectIdentifierType>
+        <premis:objectIdentifierValue>setup_dragon_age_origins_-_ultimate_edition_1.05_compatcfg_(91980)-3.bin</premis:objectIdentifierValue>
+      </premis:objectIdentifier>
+      <premis:objectCharacteristics>
+        <premis:fixity>
+          <premis:messageDigestAlgorithm>SHA-256</premis:messageDigestAlgorithm>
+          <premis:messageDigest>66585e6115e72cdc90d3cef0dc68eeca0de0b5e14bde2a005d2c547161a926b2</premis:messageDigest>
+        </premis:fixity>
+        <premis:size>4294967294</premis:size>
+        <premis:format>
+          <premis:formatDesignation>
+            <premis:formatName>GOG Offline Installer Package (SIP)</premis:formatName>
+          </premis:formatDesignation>
+        </premis:format>
+      </premis:objectCharacteristics>
+    </premis:object>
+    <premis:object xsi:type="premis:file">
+      <premis:objectIdentifier>
+        <premis:objectIdentifierType>offline_installer_sip</premis:objectIdentifierType>
+        <premis:objectIdentifierValue>setup_dragon_age_origins_-_ultimate_edition_1.05_compatcfg_(91980)-4.bin</premis:objectIdentifierValue>
+      </premis:objectIdentifier>
+      <premis:objectCharacteristics>
+        <premis:fixity>
+          <premis:messageDigestAlgorithm>SHA-256</premis:messageDigestAlgorithm>
+          <premis:messageDigest>fd5844e6b25675887837ac68d208eb225bfecc1bf3a147ac54970b3353b51fe1</premis:messageDigest>
+        </premis:fixity>
+        <premis:size>4294967294</premis:size>
+        <premis:format>
+          <premis:formatDesignation>
+            <premis:formatName>GOG Offline Installer Package (SIP)</premis:formatName>
+          </premis:formatDesignation>
+        </premis:format>
+      </premis:objectCharacteristics>
+    </premis:object>
+    <premis:object xsi:type="premis:file">
+      <premis:objectIdentifier>
+        <premis:objectIdentifierType>offline_installer_sip</premis:objectIdentifierType>
+        <premis:objectIdentifierValue>setup_dragon_age_origins_-_ultimate_edition_1.05_compatcfg_(91980)-5.bin</premis:objectIdentifierValue>
+      </premis:objectIdentifier>
+      <premis:objectCharacteristics>
+        <premis:fixity>
+          <premis:messageDigestAlgorithm>SHA-256</premis:messageDigestAlgorithm>
+          <premis:messageDigest>b1a49645f9d0be74cd4f6b1769e80ac70895149cbc9221e9c84d0d932b0061ff</premis:messageDigest>
+        </premis:fixity>
+        <premis:size>4294967294</premis:size>
+        <premis:format>
+          <premis:formatDesignation>
+            <premis:formatName>GOG Offline Installer Package (SIP)</premis:formatName>
+          </premis:formatDesignation>
+        </premis:format>
+      </premis:objectCharacteristics>
+    </premis:object>
+    <premis:object xsi:type="premis:file">
+      <premis:objectIdentifier>
+        <premis:objectIdentifierType>offline_installer_sip</premis:objectIdentifierType>
+        <premis:objectIdentifierValue>setup_dragon_age_origins_-_ultimate_edition_1.05_compatcfg_(91980)-6.bin</premis:objectIdentifierValue>
+      </premis:objectIdentifier>
+      <premis:objectCharacteristics>
+        <premis:fixity>
+          <premis:messageDigestAlgorithm>SHA-256</premis:messageDigestAlgorithm>
+          <premis:messageDigest>fb6d1cc8e21194ce02e09f2f1742beca34207e3c6d4dfcc5fe8d190e327dc81a</premis:messageDigest>
+        </premis:fixity>
+        <premis:size>3129163763</premis:size>
+        <premis:format>
+          <premis:formatDesignation>
+            <premis:formatName>GOG Offline Installer Package (SIP)</premis:formatName>
+          </premis:formatDesignation>
+        </premis:format>
+      </premis:objectCharacteristics>
+    </premis:object>
+    <premis:object xsi:type="premis:file">
+      <premis:objectIdentifier>
+        <premis:objectIdentifierType>offline_installer_sip</premis:objectIdentifierType>
+        <premis:objectIdentifierValue>setup_dragon_age_origins_-_ultimate_edition_1.05_compatcfg_(91980).exe</premis:objectIdentifierValue>
+      </premis:objectIdentifier>
+      <premis:objectCharacteristics>
+        <premis:fixity>
+          <premis:messageDigestAlgorithm>SHA-256</premis:messageDigestAlgorithm>
+          <premis:messageDigest>63052a2282bc4252c4cd8efb18d862505618eeea4421802308458834d622cdf2</premis:messageDigest>
+        </premis:fixity>
+        <premis:size>5300672</premis:size>
+        <premis:format>
+          <premis:formatDesignation>
+            <premis:formatName>GOG Offline Installer Package (SIP)</premis:formatName>
+          </premis:formatDesignation>
+        </premis:format>
+      </premis:objectCharacteristics>
+    </premis:object>
   </premis:premis>
 </archivio:record>
