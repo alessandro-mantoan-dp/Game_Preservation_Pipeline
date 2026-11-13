@@ -1,7 +1,10 @@
 import json
+import sys
+import sqlite3
 import hashlib
 from pathlib import Path
 from datetime import datetime, timezone
+from esporta_reports import aggiorna_file_condition_report
 from collections import Counter
 import pefile
 
@@ -11,7 +14,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 def calcola_sha256(percorso_file: Path) -> str:
     hasher = hashlib.sha256()
     with open(percorso_file, 'rb') as f:
-        while blocco := f.read(65536):
+        while blocco := f.read(1048576):
             hasher.update(blocco)
     return hasher.hexdigest()
 
@@ -85,6 +88,21 @@ def carica_dizionario_firme(percorso_config: Path) -> dict:
     with open(percorso_config, "r", encoding="utf-8") as f:
         return json.load(f)
 
+def carica_esclusioni(percorso_config: Path) -> tuple:
+    if not percorso_config.exists():
+        return set(), set()
+    with open(percorso_config, "r", encoding="utf-8") as f:
+        dati = json.load(f)
+    cartelle = {c.lower() for c in dati.get("cartelle_escluse", [])}
+    estensioni = {e.lower() for e in dati.get("estensioni_escluse", [])}
+    return cartelle, estensioni
+
+def file_da_ignorare(percorso_file: Path, radice_gioco: Path, cartelle_escluse: set, estensioni_escluse: set) -> bool:
+    if percorso_file.suffix.lower() in estensioni_escluse:
+        return True
+    parti_relative = {p.lower() for p in percorso_file.relative_to(radice_gioco).parts[:-1]}
+    return bool(parti_relative.intersection(cartelle_escluse))
+
 def rileva_tecnologie(lista_file: list, conteggio_estensioni: Counter, percorso_config: Path) -> dict:
     regole = carica_dizionario_firme(percorso_config)
     nomi_minuscoli = {f.name.lower() for f in lista_file}
@@ -154,10 +172,52 @@ def trova_eseguibile_reale(tutti_i_file: list, percorso_launcher: Path) -> Path:
         
     return tutti_gli_exe
 
+def registra_report_ingest(db_path: Path, id_gioco: str, nome_manifest: str, hash_manifest: str, num_file: int, dim_mb: float, aggiornato: bool):
+    """
+    Registra automaticamente nel database il Condition Report iniziale (o di aggiornamento)
+    collegato al manifest SHA-256 appena generato.
+    """
+    db_path.parent.mkdir(parents=True, exist_ok=True)
+    conn = sqlite3.connect(db_path)
+    cursore = conn.cursor()
+
+    cursore.execute("""
+        CREATE TABLE IF NOT EXISTS condition_reports (
+            id_report INTEGER PRIMARY KEY AUTOINCREMENT,
+            id_gioco TEXT NOT NULL,
+            data_ispezione TEXT NOT NULL,
+            tipo_operazione TEXT NOT NULL,
+            agente TEXT NOT NULL,
+            stato_integrita TEXT NOT NULL,
+            manifest_riferimento TEXT,
+            hash_rilevato TEXT,
+            note_tecniche TEXT
+        );
+    """)
+
+    data_ora = datetime.now(timezone.utc).isoformat()
+    tipo_op = "Baseline Manifest Updated (--forza)" if aggiornato else "Initial Ingest & Baseline Manifest"
+    note = f"Generato manifest integrale '{nome_manifest}' tracciando {num_file} file ({dim_mb} MB)."
+
+    cursore.execute("""
+        INSERT INTO condition_reports (
+            id_gioco, data_ispezione, tipo_operazione, agente,
+            stato_integrita, manifest_riferimento, hash_rilevato, note_tecniche
+        ) VALUES (?, ?, ?, 'Ingest Extractor v1.0', 'INTACT', ?, ?, ?);
+    """, (id_gioco, data_ora, tipo_op, nome_manifest, hash_manifest, note))
+
+    conn.commit()
+    conn.close()
+    aggiorna_file_condition_report(db_path, id_gioco)
+
 def esegui_estrazione_modulo1(radice: Path, cartella_out: Path, percorso_config: Path):
     print(f"Avvio scansione di: {radice.name}...")
 
-    tutti_i_file = [f for f in radice.rglob("*") if f.is_file()]
+    cartelle_escl, estensioni_escl = carica_esclusioni(BASE_DIR / "config" / "esclusioni_audit.json")
+    tutti_i_file = [
+        f for f in radice.rglob("*")
+        if f.is_file() and not file_da_ignorare(f, radice, cartelle_escl, estensioni_escl)
+    ]
     peso_totale_byte = sum(f.stat().st_size for f in tutti_i_file)
     conteggio_estensioni = Counter(f.suffix.lower() for f in tutti_i_file if f.suffix)
 
@@ -207,6 +267,97 @@ def esegui_estrazione_modulo1(radice: Path, cartella_out: Path, percorso_config:
         json.dump(documento_finale, f, indent=4, ensure_ascii=False)
 
     print(f"Completato! Salvato in: {file_destinazione.name}")
+
+    # Generazione del Manifest Integrale SHA-256 (immutabile dopo la prima acquisizione)
+    nome_manifest_out = f"{radice.name.replace(' ', '_')}_manifest_sha256.json"
+    file_manifest_dest = cartella_out / nome_manifest_out
+
+    if file_manifest_dest.exists() and "--forza" not in sys.argv:
+        print(f"Manifest integrale già presente ({file_manifest_dest.name}): baseline originale preservata.")
+    else:
+        print(f"Calcolo impronte SHA-256 per tutti i {len(tutti_i_file)} file...")
+        manifest_file = {}
+        for f in tutti_i_file:
+            percorso_rel_str = str(f.relative_to(radice)).replace("\\", "/")
+            manifest_file[percorso_rel_str] = {
+                "dimensione_byte": f.stat().st_size,
+                "sha256": calcola_sha256(f)
+            }
+
+        documento_manifest = {
+            "gog_game_id": f"GOG-{info_gog.get('gog_game_id')}",
+            "titolo": info_gog.get("titolo_ufficiale"),
+            "data_creazione_manifest_utc": datetime.now(timezone.utc).isoformat(),
+            "totale_file_tracciati": len(manifest_file),
+            "files": manifest_file
+        }
+
+        with open(file_manifest_dest, "w", encoding="utf-8") as fm:
+            json.dump(documento_manifest, fm, indent=2, ensure_ascii=False)
+
+        print(f"Manifest integrale salvato in: {file_manifest_dest.name}")
+
+        with open(file_manifest_dest, "w", encoding="utf-8") as fm:
+            json.dump(documento_manifest, fm, indent=2, ensure_ascii=False)
+
+        hash_del_manifest = calcola_sha256(file_manifest_dest)
+        id_gioco_completo = f"GOG-{info_gog.get('gog_game_id')}"
+        è_aggiornamento = "--forza" in sys.argv
+        
+        registra_report_ingest(
+            BASE_DIR / "database" / "archivio_giochi.db",
+            id_gioco_completo,
+            nome_manifest_out,
+            hash_del_manifest,
+            len(manifest_file),
+            round(peso_totale_byte / (1024 * 1024), 2),
+            è_aggiornamento
+        )
+
+        print(f"Manifest integrale salvato e registrato nel Condition Report: {file_manifest_dest.name}")
+
+    if file_manifest_dest.exists() and "--forza" not in sys.argv:
+        print(f"Manifest integrale già presente ({file_manifest_dest.name}): baseline originale preservata.", flush=True)
+    else:
+        totale = len(tutti_i_file)
+        print(f"PROGRESSO|0|Avvio calcolo SHA-256 per {radice.name} ({totale} file)...", flush=True)
+        manifest_file = {}
+        for idx, f in enumerate(tutti_i_file, start=1):
+            if idx % 250 == 0 or idx == totale:
+                perc = int((idx / totale) * 100)
+                print(f"PROGRESSO|{perc}|{radice.name}: {idx}/{totale} file ({perc}%)", flush=True)
+            percorso_rel_str = str(f.relative_to(radice)).replace("\\", "/")
+            manifest_file[percorso_rel_str] = {
+                "dimensione_byte": f.stat().st_size,
+                "sha256": calcola_sha256(f)
+            }
+
+        documento_manifest = {
+            "gog_game_id": f"GOG-{info_gog.get('gog_game_id')}",
+            "titolo": info_gog.get("titolo_ufficiale"),
+            "data_creazione_manifest_utc": datetime.now(timezone.utc).isoformat(),
+            "totale_file_tracciati": len(manifest_file),
+            "files": manifest_file
+        }
+
+        with open(file_manifest_dest, "w", encoding="utf-8") as fm:
+            json.dump(documento_manifest, fm, indent=2, ensure_ascii=False)
+
+        hash_del_manifest = calcola_sha256(file_manifest_dest)
+        id_gioco_completo = f"GOG-{info_gog.get('gog_game_id')}"
+        è_aggiornamento = "--forza" in sys.argv
+
+        registra_report_ingest(
+            BASE_DIR / "database" / "archivio_giochi.db",
+            id_gioco_completo,
+            nome_manifest_out,
+            hash_del_manifest,
+            len(manifest_file),
+            round(peso_totale_byte / (1024 * 1024), 2),
+            è_aggiornamento
+        )
+
+        print(f"Manifest integrale salvato e registrato nel Condition Report: {file_manifest_dest.name}", flush=True)
 
 if __name__ == "__main__":
     FILE_SETTINGS = BASE_DIR / "config" / "settings.json"

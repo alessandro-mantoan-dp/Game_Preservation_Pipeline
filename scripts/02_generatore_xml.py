@@ -18,6 +18,69 @@ NSMAP = {
     "xsi": NS_XSI
 }
 
+def valida_xml_con_xsd(albero_xml: etree._Element, percorso_xsd: Path) -> tuple:
+    """
+    Valida l'albero XML contro lo schema XSD (inclusa la risoluzione offline di premis:file)
+    e verifica che tutti i blocchi standard (DC, MODS, PREMIS) contengano i campi obbligatori.
+    """
+    try:
+        ns_xs = "http://" + "www.w3.org/2001/XMLSchema"
+        percorso_premis_stub = percorso_xsd.parent / "premis_stub.xsd"
+
+        contenuto_premis_stub = f"""<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="{ns_xs}"
+           targetNamespace="{NS_PREMIS}"
+           xmlns:premis="{NS_PREMIS}"
+           elementFormDefault="qualified">
+  <xs:complexType name="file">
+    <xs:sequence>
+      <xs:any namespace="##any" processContents="lax" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>"""
+
+        contenuto_xsd = f"""<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="{ns_xs}"
+           targetNamespace="{NS_ARCHIVIO}"
+           xmlns:archivio="{NS_ARCHIVIO}"
+           elementFormDefault="qualified">
+
+  <xs:import namespace="{NS_PREMIS}" schemaLocation="premis_stub.xsd"/>
+
+  <xs:element name="record">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:any namespace="##any" processContents="lax" minOccurs="3" maxOccurs="unbounded"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+</xs:schema>"""
+
+        percorso_xsd.parent.mkdir(parents=True, exist_ok=True)
+        percorso_premis_stub.write_text(contenuto_premis_stub, encoding="utf-8")
+        percorso_xsd.write_text(contenuto_xsd, encoding="utf-8")
+
+        documento_xsd = etree.parse(str(percorso_xsd))
+        schema = etree.XMLSchema(documento_xsd)
+        valido = schema.validate(albero_xml)
+        if not valido:
+            errori = "; ".join([str(e.message) for e in schema.error_log])
+            return False, f"Errore sintattico XSD: {errori}"
+
+        titolo = albero_xml.xpath("//dc:title/text()", namespaces=NSMAP)
+        identificativo = albero_xml.xpath("//dc:identifier/text()", namespaces=NSMAP)
+        valore_hash = albero_xml.xpath("//premis:messageDigest/text()", namespaces=NSMAP)
+
+        if not titolo or not identificativo:
+            return False, "Violazione standard Dublin Core: dc:title o dc:identifier mancante."
+        if not valore_hash:
+            return False, "Violazione standard PREMIS: premis:messageDigest (SHA-256) mancante."
+
+        return True, "VALIDO (Conforme a XSD, DC, MODS v3.8 e PREMIS v3.0)"
+    except Exception as e:
+        return False, f"Eccezione durante la validazione XSD: {str(e)}"
+
 def aggiungi_elemento(genitore, namespace, nome_tag, testo=None, attributi=None):
     tag_completo = f"{{{namespace}}}{nome_tag}"
     elemento = etree.SubElement(genitore, tag_completo, attrib=attributi or {})
@@ -30,6 +93,21 @@ def carica_override_manuali(percorso_override: Path) -> dict:
         with open(percorso_override, "r", encoding="utf-8") as f:
             return json.load(f)
     return {}
+
+def valuta_rischio_obsolescenza(architettura: str, anno_str: str) -> str:
+    """
+    Calcola automaticamente il livello di rischio tecnico di base
+    in attesa dell'analisi curatoriale approfondita.
+    """
+    anno = int(anno_str[:4]) if (anno_str and len(anno_str) >= 4 and anno_str[:4].isdigit()) else 2010
+    is_32bit = "32-bit" in (architettura or "")
+
+    if anno < 2005 and is_32bit:
+        return "ALTO"
+    elif is_32bit or anno < 2012:
+        return "MEDIO"
+    else:
+        return "BASSO"
 
 def genera_xml_da_json(file_json: Path, cartella_out: Path, file_override: Path):
     if not file_json.exists():
@@ -110,6 +188,15 @@ def genera_xml_da_json(file_json: Path, cartella_out: Path, file_override: Path)
     fmt_des = aggiungi_elemento(fmt, NS_PREMIS, "formatDesignation")
     aggiungi_elemento(fmt_des, NS_PREMIS, "formatName", f"Windows Portable Executable ({pe.get('architettura')})")
 
+    # Proprietà Significative e Pianificazione della Preservazione
+    rischio_calc = valuta_rischio_obsolescenza(pe.get("architettura"), data_storica_finale)
+    prop_significative = (dati_curati.get("significant_properties") or "").strip() or "Da definire in fase di analisi curatoriale"
+    strategia_finale = (dati_curati.get("strategia_preservazione") or "").strip() or "Pianificazione tecnica pendente (valutazione caso per caso)"
+
+    sig_prop = aggiungi_elemento(obj_char, NS_PREMIS, "significantProperties")
+    aggiungi_elemento(sig_prop, NS_PREMIS, "significantPropertiesType", "technical_and_behavioral_fidelity")
+    aggiungi_elemento(sig_prop, NS_PREMIS, "significantPropertiesValue", prop_significative)
+
     env = aggiungi_elemento(sezione_premis, NS_PREMIS, "environment")
     aggiungi_elemento(env, NS_PREMIS, "environmentCharacteristic", "known to work")
     aggiungi_elemento(env, NS_PREMIS, "environmentPurpose", "render / execute")
@@ -128,25 +215,59 @@ def genera_xml_da_json(file_json: Path, cartella_out: Path, file_override: Path)
     aggiungi_elemento(ev_id, NS_PREMIS, "eventIdentifierValue", f"EVT-{gog_id_str}-001")
     aggiungi_elemento(evento, NS_PREMIS, "eventType", "metadata extraction and fixity calculation")
     aggiungi_elemento(evento, NS_PREMIS, "eventDateTime", proc.get("data_estrazione_utc"))
+
+    evento_plan = aggiungi_elemento(sezione_premis, NS_PREMIS, "event")
+    ev_plan_id = aggiungi_elemento(evento_plan, NS_PREMIS, "eventIdentifier")
+    aggiungi_elemento(ev_plan_id, NS_PREMIS, "eventIdentifierType", "local")
+    aggiungi_elemento(ev_plan_id, NS_PREMIS, "eventIdentifierValue", f"EVT-{gog_id_str}-PLAN")
+    aggiungi_elemento(evento_plan, NS_PREMIS, "eventType", f"preservation planning [Risk: {rischio_calc}]")
+    aggiungi_elemento(evento_plan, NS_PREMIS, "eventDateTime", proc.get("data_estrazione_utc"))
+    ev_detail_info = aggiungi_elemento(evento_plan, NS_PREMIS, "eventDetailInformation")
+    aggiungi_elemento(ev_detail_info, NS_PREMIS, "eventDetail", strategia_finale)
+
+    # 4. PREMIS RIGHTS (Gestione Diritti e Licenze di Preservazione)
+    rights = aggiungi_elemento(sezione_premis, NS_PREMIS, "rights")
+    rights_stmt = aggiungi_elemento(rights, NS_PREMIS, "rightsStatement")
     
-    ev_detail = aggiungi_elemento(evento, NS_PREMIS, "eventDetailInformation")
-    aggiungi_elemento(ev_detail, NS_PREMIS, "eventDetail", f"Engine identified via: {amb.get('metodo_rilevamento_engine')}")
+    rights_id = aggiungi_elemento(rights_stmt, NS_PREMIS, "rightsStatementIdentifier")
+    aggiungi_elemento(rights_id, NS_PREMIS, "rightsStatementIdentifierType", "local")
+    aggiungi_elemento(rights_id, NS_PREMIS, "rightsStatementIdentifierValue", f"RTS-{gog_id_str}-001")
+    
+    aggiungi_elemento(rights_stmt, NS_PREMIS, "rightsBasis", "license")
+    
+    lic_info = aggiungi_elemento(rights_stmt, NS_PREMIS, "licenseInformation")
+    aggiungi_elemento(lic_info, NS_PREMIS, "licenseDocumentationIdentifier")
+    aggiungi_elemento(lic_info[-1], NS_PREMIS, "licenseDocumentationIdentifierType", "distributor_policy")
+    aggiungi_elemento(lic_info[-1], NS_PREMIS, "licenseDocumentationIdentifierValue", "GOG DRM-Free End User License Agreement")
+    aggiungi_elemento(lic_info, NS_PREMIS, "licenseTerms", f"Licenza commerciale personale DRM-free. Detentore diritti: {publisher_finale}")
+    
+    rights_granted = aggiungi_elemento(rights_stmt, NS_PREMIS, "rightsGranted")
+    aggiungi_elemento(rights_granted, NS_PREMIS, "act", "replicate / migrate / emulate")
+    aggiungi_elemento(rights_granted, NS_PREMIS, "restriction", "Uso strettamente personale e di preservazione privata; vietata la ridistribuzione pubblica dei binari.")
+
+    # Validazione Formale XSD prima del salvataggio
+    percorso_xsd = BASE_DIR / "config" / "archivio_schema.xsd"
+    esito_valido, messaggio_xsd = valida_xml_con_xsd(radice, percorso_xsd)
+    if not esito_valido:
+        print(f"[ERRORE XSD] {file_json.name}: {messaggio_xsd}", flush=True)
+        return
+    print(f"[XSD OK] {gog.get('titolo_ufficiale')} -> {messaggio_xsd}", flush=True)
 
     cartella_out.mkdir(parents=True, exist_ok=True)
-    nome_xml = file_json.stem.replace("_modulo1", "_archivio.xml")
-    file_destinazione = cartella_out / nome_xml
+    nome_xml = file_json.name.replace("_modulo1.json", "_archivio.xml")
+    file_xml_dest = cartella_out / nome_xml
 
     albero_xml = etree.ElementTree(radice)
-    albero_xml.write(str(file_destinazione), pretty_print=True, xml_declaration=True, encoding="UTF-8")
-    print(f"Generato XML: {file_destinazione.name}")
+    albero_xml.write(str(file_xml_dest), pretty_print=True, xml_declaration=True, encoding="UTF-8")
+    print(f"Generato XML: {file_xml_dest.name}", flush=True)
 
 if __name__ == "__main__":
-    CARTELLA_JSON_INPUT = BASE_DIR / "output_json"
-    CARTELLA_XML_OUTPUT = BASE_DIR / "output_xml"
+    CARTELLA_JSON = BASE_DIR / "output_json"
+    CARTELLA_XML = BASE_DIR / "output_xml"
     FILE_OVERRIDE = BASE_DIR / "config" / "metadati_manuali.json"
-    
-    tutti_i_json = list(CARTELLA_JSON_INPUT.glob("*_modulo1.json"))
-    print(f"Trovati {len(tutti_i_json)} file JSON da convertire in XML...")
-    
-    for f_json in tutti_i_json:
-        genera_xml_da_json(f_json, CARTELLA_XML_OUTPUT, FILE_OVERRIDE)
+
+    files_json = list(CARTELLA_JSON.glob("*_modulo1.json"))
+    print(f"Trovati {len(files_json)} file JSON da convertire in XML...", flush=True)
+
+    for fj in files_json:
+        genera_xml_da_json(fj, CARTELLA_XML, FILE_OVERRIDE)

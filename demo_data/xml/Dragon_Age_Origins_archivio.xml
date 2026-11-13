@@ -3,8 +3,8 @@
   <dc:metadata>
     <dc:title>Dragon Age: Origins - Ultimate Edition</dc:title>
     <dc:creator>BioWare</dc:creator>
-    <dc:publisher>GOG.com (Distributore) / © 2011 EA International (Studio and Publishing) Ltd.</dc:publisher>
-    <dc:date>2011-11-02</dc:date>
+    <dc:publisher>Electronic Arts / GOG.com</dc:publisher>
+    <dc:date>2009-11-03</dc:date>
     <dc:type>Software / Video Game</dc:type>
     <dc:format>Digital Download (DRM-Free)</dc:format>
     <dc:identifier>GOG-1949616134</dc:identifier>
@@ -21,7 +21,7 @@
       </mods:role>
     </mods:name>
     <mods:originInfo>
-      <mods:dateIssued encoding="iso8601">2011-11-02</mods:dateIssued>
+      <mods:dateIssued encoding="iso8601">2009-11-03</mods:dateIssued>
       <mods:dateCreated encoding="iso8601">2011-11-02T19:43:15+00:00</mods:dateCreated>
       <mods:edition>Version 1.05.13263.0</mods:edition>
     </mods:originInfo>
@@ -48,6 +48,10 @@
             <premis:formatName>Windows Portable Executable (x86 (32-bit))</premis:formatName>
           </premis:formatDesignation>
         </premis:format>
+        <premis:significantProperties>
+          <premis:significantPropertiesType>technical_and_behavioral_fidelity</premis:significantPropertiesType>
+          <premis:significantPropertiesValue>Da definire in fase di analisi curatoriale</premis:significantPropertiesValue>
+        </premis:significantProperties>
       </premis:objectCharacteristics>
     </premis:object>
     <premis:environment>
@@ -68,10 +72,38 @@
         <premis:eventIdentifierValue>EVT-1949616134-001</premis:eventIdentifierValue>
       </premis:eventIdentifier>
       <premis:eventType>metadata extraction and fixity calculation</premis:eventType>
-      <premis:eventDateTime>2026-11-12T15:02:57.706375+00:00</premis:eventDateTime>
+      <premis:eventDateTime>2026-11-13T12:39:28.283011+00:00</premis:eventDateTime>
+    </premis:event>
+    <premis:event>
+      <premis:eventIdentifier>
+        <premis:eventIdentifierType>local</premis:eventIdentifierType>
+        <premis:eventIdentifierValue>EVT-1949616134-PLAN</premis:eventIdentifierValue>
+      </premis:eventIdentifier>
+      <premis:eventType>preservation planning [Risk: MEDIO]</premis:eventType>
+      <premis:eventDateTime>2026-11-13T12:39:28.283011+00:00</premis:eventDateTime>
       <premis:eventDetailInformation>
-        <premis:eventDetail>Engine identified via: Firme estensioni (.rim, .erf, .tlk)</premis:eventDetail>
+        <premis:eventDetail>Pianificazione tecnica pendente (valutazione caso per caso)</premis:eventDetail>
       </premis:eventDetailInformation>
     </premis:event>
+    <premis:rights>
+      <premis:rightsStatement>
+        <premis:rightsStatementIdentifier>
+          <premis:rightsStatementIdentifierType>local</premis:rightsStatementIdentifierType>
+          <premis:rightsStatementIdentifierValue>RTS-1949616134-001</premis:rightsStatementIdentifierValue>
+        </premis:rightsStatementIdentifier>
+        <premis:rightsBasis>license</premis:rightsBasis>
+        <premis:licenseInformation>
+          <premis:licenseDocumentationIdentifier>
+            <premis:licenseDocumentationIdentifierType>distributor_policy</premis:licenseDocumentationIdentifierType>
+            <premis:licenseDocumentationIdentifierValue>GOG DRM-Free End User License Agreement</premis:licenseDocumentationIdentifierValue>
+          </premis:licenseDocumentationIdentifier>
+          <premis:licenseTerms>Licenza commerciale personale DRM-free. Detentore diritti: Electronic Arts / GOG.com</premis:licenseTerms>
+        </premis:licenseInformation>
+        <premis:rightsGranted>
+          <premis:act>replicate / migrate / emulate</premis:act>
+          <premis:restriction>Uso strettamente personale e di preservazione privata; vietata la ridistribuzione pubblica dei binari.</premis:restriction>
+        </premis:rightsGranted>
+      </premis:rightsStatement>
+    </premis:rights>
   </premis:premis>
 </archivio:record>

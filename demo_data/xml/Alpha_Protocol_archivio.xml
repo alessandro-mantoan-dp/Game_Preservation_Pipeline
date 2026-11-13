@@ -4,7 +4,7 @@
     <dc:title>Alpha Protocol</dc:title>
     <dc:creator>Obsidian Entertainment, Inc.</dc:creator>
     <dc:publisher>GOG.com (Distributore) / © 2010 Obsidian Entertainment, Inc. All rights reserved.</dc:publisher>
-    <dc:date>2010-05-27</dc:date>
+    <dc:date>2023-09-13</dc:date>
     <dc:type>Software / Video Game</dc:type>
     <dc:format>Digital Download (DRM-Free)</dc:format>
     <dc:identifier>GOG-1360785671</dc:identifier>
@@ -21,7 +21,7 @@
       </mods:role>
     </mods:name>
     <mods:originInfo>
-      <mods:dateIssued encoding="iso8601">2010-05-27</mods:dateIssued>
+      <mods:dateIssued encoding="iso8601">2023-09-13</mods:dateIssued>
       <mods:dateCreated encoding="iso8601">2023-09-13T21:20:13+00:00</mods:dateCreated>
       <mods:edition>Version 1, 1, 0, 0</mods:edition>
     </mods:originInfo>
@@ -48,6 +48,10 @@
             <premis:formatName>Windows Portable Executable (x86 (32-bit))</premis:formatName>
           </premis:formatDesignation>
         </premis:format>
+        <premis:significantProperties>
+          <premis:significantPropertiesType>technical_and_behavioral_fidelity</premis:significantPropertiesType>
+          <premis:significantPropertiesValue>Da definire in fase di analisi curatoriale</premis:significantPropertiesValue>
+        </premis:significantProperties>
       </premis:objectCharacteristics>
     </premis:object>
     <premis:environment>
@@ -68,10 +72,38 @@
         <premis:eventIdentifierValue>EVT-1360785671-001</premis:eventIdentifierValue>
       </premis:eventIdentifier>
       <premis:eventType>metadata extraction and fixity calculation</premis:eventType>
-      <premis:eventDateTime>2026-11-12T15:02:50.004300+00:00</premis:eventDateTime>
+      <premis:eventDateTime>2026-11-13T12:36:49.376510+00:00</premis:eventDateTime>
+    </premis:event>
+    <premis:event>
+      <premis:eventIdentifier>
+        <premis:eventIdentifierType>local</premis:eventIdentifierType>
+        <premis:eventIdentifierValue>EVT-1360785671-PLAN</premis:eventIdentifierValue>
+      </premis:eventIdentifier>
+      <premis:eventType>preservation planning [Risk: MEDIO]</premis:eventType>
+      <premis:eventDateTime>2026-11-13T12:36:49.376510+00:00</premis:eventDateTime>
       <premis:eventDetailInformation>
-        <premis:eventDetail>Engine identified via: Firme estensioni (.upk, .umap)</premis:eventDetail>
+        <premis:eventDetail>Pianificazione tecnica pendente (valutazione caso per caso)</premis:eventDetail>
       </premis:eventDetailInformation>
     </premis:event>
+    <premis:rights>
+      <premis:rightsStatement>
+        <premis:rightsStatementIdentifier>
+          <premis:rightsStatementIdentifierType>local</premis:rightsStatementIdentifierType>
+          <premis:rightsStatementIdentifierValue>RTS-1360785671-001</premis:rightsStatementIdentifierValue>
+        </premis:rightsStatementIdentifier>
+        <premis:rightsBasis>license</premis:rightsBasis>
+        <premis:licenseInformation>
+          <premis:licenseDocumentationIdentifier>
+            <premis:licenseDocumentationIdentifierType>distributor_policy</premis:licenseDocumentationIdentifierType>
+            <premis:licenseDocumentationIdentifierValue>GOG DRM-Free End User License Agreement</premis:licenseDocumentationIdentifierValue>
+          </premis:licenseDocumentationIdentifier>
+          <premis:licenseTerms>Licenza commerciale personale DRM-free. Detentore diritti: GOG.com (Distributore) / © 2010 Obsidian Entertainment, Inc. All rights reserved.</premis:licenseTerms>
+        </premis:licenseInformation>
+        <premis:rightsGranted>
+          <premis:act>replicate / migrate / emulate</premis:act>
+          <premis:restriction>Uso strettamente personale e di preservazione privata; vietata la ridistribuzione pubblica dei binari.</premis:restriction>
+        </premis:rightsGranted>
+      </premis:rightsStatement>
+    </premis:rights>
   </premis:premis>
 </archivio:record>

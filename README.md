@@ -6,26 +6,24 @@ Un sistema modulare in Python per l'estrazione forense dei metadati tecnici, la 
 
 ## Architettura del Progetto
 
-La pipeline è suddivisa in **5 moduli indipendenti** progettati secondo i principi della *Digital Curation* e del modello OAIS:
+### Architettura Modulare (Standard OAIS / ISO 14721)
 
-1. **Estrazione Forense (`scripts/01_estrattore_gog.py`)**:
-   * Scansiona le cartelle dei giochi installati e legge i manifest ufficiali di GOG (`goggame-*.info`).
-   * Ispeziona i **PE Header** degli eseguibili Windows per estrarre l'architettura CPU (`x86` / `x64`), il timestamp originale di compilazione UTC e le informazioni di versione.
-   * Calcola l'impronta crittografica **SHA-256** (*fixity*) del binario principale.
-   * Deduce il motore grafico tramite un dizionario euristico esterno basato su librerie ed estensioni proprietarie (`config/firme_engine.json`).
-
-2. **Standardizzazione Archivistica (`scripts/02_generatore_xml.py`)**:
-   * Traduce i dati grezzi JSON in documenti XML interoperabili conformi agli standard internazionali **Dublin Core (DC)**, **MODS v3.8** e **PREMIS v3.0**.
-   * Integra un registro di override curato (`config/metadati_manuali.json`) per arricchire i metadati storici mancanti nei file binari più datati.
-
-3. **Modellazione Relazionale (`scripts/03_popola_database.py`)**:
-   * Esegue il parsing **XPath** dei file XML e normalizza i dati in un database **SQLite** strutturato su tre tabelle relazionali (`giochi`, `oggetti_digitali`, `ambienti_eventi`).
-
-4. **Interrogazione Forense CLI (`scripts/04_interroga_archivio.py`)**:
-   * Interfaccia a riga di comando per eseguire query SQL relazionali (`JOIN`), filtrare per engine/architettura e verificare impronte **SHA-256**.
-
-5. **Interfaccia Web Interattiva (`scripts/05_interfaccia_web.py`)**:
-   * Applicazione web sviluppata con **Streamlit** per esplorare il catalogo con filtri avanzati incrociati, ispezionare le schede divise per standard, scaricare i file XML e sincronizzare l'intera pipeline con un clic.
+1. **Estrazione Forense e Baseline (`scripts/01_estrattore_gog.py`)**:
+   - Analizza manifest GOG, intestazioni binarie PE Header (`x86`/`x64`) e librerie per dedurre il motore grafico.
+   - Esclude i dati utente (salvataggi) tramite `config/esclusioni_audit.json` e calcola il manifest crittografico immutabile **SHA-256** dell'intero pacchetto.
+2. **Standardizzazione XML e Validazione XSD (`scripts/02_generatore_xml.py`)**:
+   - Genera record interoperabili conformi a **Dublin Core**, **MODS v3.8** e **PREMIS v3.0** (inclusi *Significant Properties*, valutazione automatica del rischio di obsolescenza e gestione diritti `premis:rights`).
+   - Certifica la conformità strutturale tramite validazione offline contro **schemi XSD** (`config/archivio_schema.xsd`).
+3. **Indicizzazione Relazionale (`scripts/03_popola_database.py`)**:
+   - Esegue il parsing XPath degli XML e popola il database **SQLite** mantenendo intatto lo storico dei Condition Report.
+4. **Interrogazione CLI (`scripts/04_interroga_archivio.py`)**:
+   - Interfaccia a riga di comando per query SQL/JOIN e report statistici rapidi.
+5. **Dashboard Web Ibrida (`scripts/05_interfaccia_web.py`)**:
+   - Interfaccia interattiva in **Streamlit** con filtri multi-criterio, ispezione XML, registro storico **Condition Report** e esecuzione guidata dei moduli locali.
+6. **Audit di Integrità e Condition Reporting (`scripts/06_audit_integrita.py` & `scripts/esporta_reports.py`)**:
+   - Esegue controlli periodici (*Audit Rapido* sull'eseguibile o *Audit Profondo* sull'intero manifest) per rilevare fenomeni di *bit-rot* o alterazioni, registrando gli esiti nel database ed esportando schede leggibili in Markdown (`output_reports/`).
+7. **Impacchettamento AIP BagIt (`scripts/07_esporta_bagit.py`)**:
+   - Genera pacchetti di conservazione autocontenuti conformi allo standard **BagIt (RFC 8493)** (`bagit.txt`, `bag-info.txt`, `manifest-sha256.txt`, `tagmanifest-sha256.txt`) unendo i binari originali ai metadati XML e ai Condition Report.
 
 ## Struttura delle Cartelle
 

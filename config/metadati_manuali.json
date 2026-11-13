@@ -1,15 +1,37 @@
 {
-    "1942346586": {
-        "creator": "IO Interactive",
-        "publisher": "Eidos Interactive / GOG.com",
-        "date": "2006-05-26"
-    },
-    "1207658713": {
-        "creator": "Firefly Studios",
-        "publisher": "Take-Two Interactive / GOG.com",
-        "date": "2002-09-18"
-    },
-    "1360785671": {
-        "date": "2010-05-27"
-    }
+  "1942346586": {
+    "creator": "Firefly Studios",
+    "publisher": "Firefly Studios / GOG.com",
+    "date": "2008-05-13",
+    "significant_properties": "",
+    "strategia_preservazione": ""
+  },
+  "1949616134": {
+    "creator": "BioWare",
+    "publisher": "Electronic Arts / GOG.com",
+    "date": "2009-11-03",
+    "significant_properties": "",
+    "strategia_preservazione": ""
+  },
+  "1454315831": {
+    "creator": "Bethesda Game Studios",
+    "publisher": "Bethesda Softworks / GOG.com",
+    "date": "2008-10-28",
+    "significant_properties": "",
+    "strategia_preservazione": ""
+  },
+  "1207659029": {
+    "creator": "Obsidian Entertainment",
+    "publisher": "SEGA / GOG.com",
+    "date": "2010-05-28",
+    "significant_properties": "",
+    "strategia_preservazione": ""
+  },
+  "1207658903": {
+    "creator": "IO Interactive",
+    "publisher": "Eidos Interactive / GOG.com",
+    "date": "2006-05-26",
+    "significant_properties": "",
+    "strategia_preservazione": ""
+  }
 }

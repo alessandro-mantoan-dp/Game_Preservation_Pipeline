@@ -2,9 +2,9 @@
 <archivio:record xmlns:archivio="http://mioarchivio.local/schema/v1" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:mods="http://www.loc.gov/mods/v3" xmlns:premis="http://www.loc.gov/premis/v3" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <dc:metadata>
     <dc:title>Hitman: Blood Money</dc:title>
-    <dc:creator>IO Interactive</dc:creator>
-    <dc:publisher>Eidos Interactive / GOG.com</dc:publisher>
-    <dc:date>2006-05-26</dc:date>
+    <dc:creator>Firefly Studios</dc:creator>
+    <dc:publisher>Firefly Studios / GOG.com</dc:publisher>
+    <dc:date>2008-05-13</dc:date>
     <dc:type>Software / Video Game</dc:type>
     <dc:format>Digital Download (DRM-Free)</dc:format>
     <dc:identifier>GOG-1942346586</dc:identifier>
@@ -15,13 +15,13 @@
       <mods:title>Hitman: Blood Money</mods:title>
     </mods:titleInfo>
     <mods:name type="corporate">
-      <mods:namePart>IO Interactive</mods:namePart>
+      <mods:namePart>Firefly Studios</mods:namePart>
       <mods:role>
         <mods:roleTerm type="text">developer</mods:roleTerm>
       </mods:role>
     </mods:name>
     <mods:originInfo>
-      <mods:dateIssued encoding="iso8601">2006-05-26</mods:dateIssued>
+      <mods:dateIssued encoding="iso8601">2008-05-13</mods:dateIssued>
       <mods:dateCreated encoding="iso8601">2006-06-16T13:55:17+00:00</mods:dateCreated>
     </mods:originInfo>
     <mods:physicalDescription>
@@ -47,6 +47,10 @@
             <premis:formatName>Windows Portable Executable (x86 (32-bit))</premis:formatName>
           </premis:formatDesignation>
         </premis:format>
+        <premis:significantProperties>
+          <premis:significantPropertiesType>technical_and_behavioral_fidelity</premis:significantPropertiesType>
+          <premis:significantPropertiesValue>Da definire in fase di analisi curatoriale</premis:significantPropertiesValue>
+        </premis:significantProperties>
       </premis:objectCharacteristics>
     </premis:object>
     <premis:environment>
@@ -67,10 +71,38 @@
         <premis:eventIdentifierValue>EVT-1942346586-001</premis:eventIdentifierValue>
       </premis:eventIdentifier>
       <premis:eventType>metadata extraction and fixity calculation</premis:eventType>
-      <premis:eventDateTime>2026-11-12T15:03:03.577976+00:00</premis:eventDateTime>
+      <premis:eventDateTime>2026-11-13T12:49:47.718833+00:00</premis:eventDateTime>
+    </premis:event>
+    <premis:event>
+      <premis:eventIdentifier>
+        <premis:eventIdentifierType>local</premis:eventIdentifierType>
+        <premis:eventIdentifierValue>EVT-1942346586-PLAN</premis:eventIdentifierValue>
+      </premis:eventIdentifier>
+      <premis:eventType>preservation planning [Risk: MEDIO]</premis:eventType>
+      <premis:eventDateTime>2026-11-13T12:49:47.718833+00:00</premis:eventDateTime>
       <premis:eventDetailInformation>
-        <premis:eventDetail>Engine identified via: Firme estensioni (.whd, .zip)</premis:eventDetail>
+        <premis:eventDetail>Pianificazione tecnica pendente (valutazione caso per caso)</premis:eventDetail>
       </premis:eventDetailInformation>
     </premis:event>
+    <premis:rights>
+      <premis:rightsStatement>
+        <premis:rightsStatementIdentifier>
+          <premis:rightsStatementIdentifierType>local</premis:rightsStatementIdentifierType>
+          <premis:rightsStatementIdentifierValue>RTS-1942346586-001</premis:rightsStatementIdentifierValue>
+        </premis:rightsStatementIdentifier>
+        <premis:rightsBasis>license</premis:rightsBasis>
+        <premis:licenseInformation>
+          <premis:licenseDocumentationIdentifier>
+            <premis:licenseDocumentationIdentifierType>distributor_policy</premis:licenseDocumentationIdentifierType>
+            <premis:licenseDocumentationIdentifierValue>GOG DRM-Free End User License Agreement</premis:licenseDocumentationIdentifierValue>
+          </premis:licenseDocumentationIdentifier>
+          <premis:licenseTerms>Licenza commerciale personale DRM-free. Detentore diritti: Firefly Studios / GOG.com</premis:licenseTerms>
+        </premis:licenseInformation>
+        <premis:rightsGranted>
+          <premis:act>replicate / migrate / emulate</premis:act>
+          <premis:restriction>Uso strettamente personale e di preservazione privata; vietata la ridistribuzione pubblica dei binari.</premis:restriction>
+        </premis:rightsGranted>
+      </premis:rightsStatement>
+    </premis:rights>
   </premis:premis>
 </archivio:record>

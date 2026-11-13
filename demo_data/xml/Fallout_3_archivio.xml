@@ -2,9 +2,9 @@
 <archivio:record xmlns:archivio="http://mioarchivio.local/schema/v1" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:mods="http://www.loc.gov/mods/v3" xmlns:premis="http://www.loc.gov/premis/v3" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <dc:metadata>
     <dc:title>Fallout 3</dc:title>
-    <dc:creator>Bethesda Softworks</dc:creator>
-    <dc:publisher>GOG.com (Distributore) / Copyright  2006 ZeniMax Media Incorporated. All Rights Reserved.</dc:publisher>
-    <dc:date>2009-06-23</dc:date>
+    <dc:creator>Bethesda Game Studios</dc:creator>
+    <dc:publisher>Bethesda Softworks / GOG.com</dc:publisher>
+    <dc:date>2008-10-28</dc:date>
     <dc:type>Software / Video Game</dc:type>
     <dc:format>Digital Download (DRM-Free)</dc:format>
     <dc:identifier>GOG-1454315831</dc:identifier>
@@ -15,13 +15,13 @@
       <mods:title>Fallout 3</mods:title>
     </mods:titleInfo>
     <mods:name type="corporate">
-      <mods:namePart>Bethesda Softworks</mods:namePart>
+      <mods:namePart>Bethesda Game Studios</mods:namePart>
       <mods:role>
         <mods:roleTerm type="text">developer</mods:roleTerm>
       </mods:role>
     </mods:name>
     <mods:originInfo>
-      <mods:dateIssued encoding="iso8601">2009-06-23</mods:dateIssued>
+      <mods:dateIssued encoding="iso8601">2008-10-28</mods:dateIssued>
       <mods:dateCreated encoding="iso8601">2009-06-23T15:15:23+00:00</mods:dateCreated>
       <mods:edition>Version 1.7.0.3</mods:edition>
     </mods:originInfo>
@@ -48,6 +48,10 @@
             <premis:formatName>Windows Portable Executable (x86 (32-bit))</premis:formatName>
           </premis:formatDesignation>
         </premis:format>
+        <premis:significantProperties>
+          <premis:significantPropertiesType>technical_and_behavioral_fidelity</premis:significantPropertiesType>
+          <premis:significantPropertiesValue>Da definire in fase di analisi curatoriale</premis:significantPropertiesValue>
+        </premis:significantProperties>
       </premis:objectCharacteristics>
     </premis:object>
     <premis:environment>
@@ -68,10 +72,38 @@
         <premis:eventIdentifierValue>EVT-1454315831-001</premis:eventIdentifierValue>
       </premis:eventIdentifier>
       <premis:eventType>metadata extraction and fixity calculation</premis:eventType>
-      <premis:eventDateTime>2026-11-12T15:03:02.597539+00:00</premis:eventDateTime>
+      <premis:eventDateTime>2026-11-13T12:49:16.301613+00:00</premis:eventDateTime>
+    </premis:event>
+    <premis:event>
+      <premis:eventIdentifier>
+        <premis:eventIdentifierType>local</premis:eventIdentifierType>
+        <premis:eventIdentifierValue>EVT-1454315831-PLAN</premis:eventIdentifierValue>
+      </premis:eventIdentifier>
+      <premis:eventType>preservation planning [Risk: MEDIO]</premis:eventType>
+      <premis:eventDateTime>2026-11-13T12:49:16.301613+00:00</premis:eventDateTime>
       <premis:eventDetailInformation>
-        <premis:eventDetail>Engine identified via: Firme estensioni (.bsa, .esm)</premis:eventDetail>
+        <premis:eventDetail>Pianificazione tecnica pendente (valutazione caso per caso)</premis:eventDetail>
       </premis:eventDetailInformation>
     </premis:event>
+    <premis:rights>
+      <premis:rightsStatement>
+        <premis:rightsStatementIdentifier>
+          <premis:rightsStatementIdentifierType>local</premis:rightsStatementIdentifierType>
+          <premis:rightsStatementIdentifierValue>RTS-1454315831-001</premis:rightsStatementIdentifierValue>
+        </premis:rightsStatementIdentifier>
+        <premis:rightsBasis>license</premis:rightsBasis>
+        <premis:licenseInformation>
+          <premis:licenseDocumentationIdentifier>
+            <premis:licenseDocumentationIdentifierType>distributor_policy</premis:licenseDocumentationIdentifierType>
+            <premis:licenseDocumentationIdentifierValue>GOG DRM-Free End User License Agreement</premis:licenseDocumentationIdentifierValue>
+          </premis:licenseDocumentationIdentifier>
+          <premis:licenseTerms>Licenza commerciale personale DRM-free. Detentore diritti: Bethesda Softworks / GOG.com</premis:licenseTerms>
+        </premis:licenseInformation>
+        <premis:rightsGranted>
+          <premis:act>replicate / migrate / emulate</premis:act>
+          <premis:restriction>Uso strettamente personale e di preservazione privata; vietata la ridistribuzione pubblica dei binari.</premis:restriction>
+        </premis:rightsGranted>
+      </premis:rightsStatement>
+    </premis:rights>
   </premis:premis>
 </archivio:record>

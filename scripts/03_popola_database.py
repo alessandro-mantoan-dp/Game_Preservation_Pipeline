@@ -23,16 +23,16 @@ def inizializza_database(percorso_db: Path):
     cursore.execute("PRAGMA foreign_keys = ON;")
 
     cursore.execute("""
-        CREATE TABLE IF NOT EXISTS giochi (
-            id_gioco TEXT PRIMARY KEY,
-            titolo TEXT NOT NULL,
-            sviluppatore TEXT,
-            publisher TEXT,
-            data_rilascio TEXT,
-            versione_edizione TEXT,
-            lingua TEXT,
-            descrizione_fisica TEXT,
-            note_formati TEXT
+        CREATE TABLE IF NOT EXISTS condition_reports (
+            id_report INTEGER PRIMARY KEY AUTOINCREMENT,
+            id_gioco TEXT NOT NULL,
+            data_ispezione TEXT NOT NULL,
+            tipo_operazione TEXT NOT NULL,
+            agente TEXT NOT NULL,
+            stato_integrita TEXT NOT NULL,
+            manifest_riferimento TEXT,
+            hash_rilevato TEXT,
+            note_tecniche TEXT
         );
     """)
 
@@ -124,10 +124,32 @@ def importa_xml_nel_db(file_xml: Path, file_db: Path):
         tipo_ev = ev.findtext("premis:eventType", namespaces=NSMAP)
         data_ev = ev.findtext("premis:eventDateTime", namespaces=NSMAP)
         dettaglio_ev = ev.findtext("premis:eventDetailInformation/premis:eventDetail", namespaces=NSMAP)
+        categoria_ev = "preservation_planning" if dettaglio_ev else "preservation_event"
         cursore.execute("""
             INSERT INTO ambienti_eventi (id_gioco, categoria, tipo, descrizione, data_registrazione)
-            VALUES (?, 'preservation_event', ?, ?, ?);
-        """, (id_gioco, tipo_ev, dettaglio_ev, data_ev))
+            VALUES (?, ?, ?, ?, ?);
+        """, (id_gioco, categoria_ev, tipo_ev, dettaglio_ev, data_ev))
+
+    # Estrae le Proprietà Significative (Significant Properties)
+    for sig in radice.findall(".//premis:significantProperties", namespaces=NSMAP):
+        tipo_sig = sig.findtext("premis:significantPropertiesType", namespaces=NSMAP) or "fidelity"
+        val_sig = sig.findtext("premis:significantPropertiesValue", namespaces=NSMAP)
+        if val_sig:
+            cursore.execute("""
+                INSERT INTO ambienti_eventi (id_gioco, categoria, tipo, descrizione, data_registrazione)
+                VALUES (?, 'significant_properties', ?, ?, ?);
+            """, (id_gioco, tipo_sig, val_sig, data_rilascio))
+
+    # Estrae i Diritti e Licenze (PREMIS Rights)
+    for rts in radice.findall(".//premis:rightsStatement", namespaces=NSMAP):
+        termini = rts.findtext("premis:licenseInformation/premis:licenseTerms", namespaces=NSMAP)
+        atti = rts.findtext("premis:rightsGranted/premis:act", namespaces=NSMAP) or "N/D"
+        if termini:
+            desc_diritti = f"{termini} [Azioni consentite: {atti}]"
+            cursore.execute("""
+                INSERT INTO ambienti_eventi (id_gioco, categoria, tipo, descrizione, data_registrazione)
+                VALUES (?, 'rights_management', 'license', ?, ?);
+            """, (id_gioco, desc_diritti, data_rilascio))
 
     conn.commit()
     conn.close()

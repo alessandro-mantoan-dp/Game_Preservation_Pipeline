@@ -2,9 +2,9 @@
 <archivio:record xmlns:archivio="http://mioarchivio.local/schema/v1" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:mods="http://www.loc.gov/mods/v3" xmlns:premis="http://www.loc.gov/premis/v3" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <dc:metadata>
     <dc:title>Stronghold Crusader Extreme HD</dc:title>
-    <dc:creator>Firefly Studios</dc:creator>
-    <dc:publisher>Take-Two Interactive / GOG.com</dc:publisher>
-    <dc:date>2002-09-18</dc:date>
+    <dc:creator>Sconosciuto</dc:creator>
+    <dc:publisher>GOG.com (Distributore) / Copyright © 2002</dc:publisher>
+    <dc:date>2018-03-19</dc:date>
     <dc:type>Software / Video Game</dc:type>
     <dc:format>Digital Download (DRM-Free)</dc:format>
     <dc:identifier>GOG-1207658713</dc:identifier>
@@ -14,14 +14,8 @@
     <mods:titleInfo>
       <mods:title>Stronghold Crusader Extreme HD</mods:title>
     </mods:titleInfo>
-    <mods:name type="corporate">
-      <mods:namePart>Firefly Studios</mods:namePart>
-      <mods:role>
-        <mods:roleTerm type="text">developer</mods:roleTerm>
-      </mods:role>
-    </mods:name>
     <mods:originInfo>
-      <mods:dateIssued encoding="iso8601">2002-09-18</mods:dateIssued>
+      <mods:dateIssued encoding="iso8601">2018-03-19</mods:dateIssued>
       <mods:dateCreated encoding="iso8601">2018-03-19T10:41:01+00:00</mods:dateCreated>
       <mods:edition>Version 1, 1, 0, 1</mods:edition>
     </mods:originInfo>
@@ -48,6 +42,10 @@
             <premis:formatName>Windows Portable Executable (x86 (32-bit))</premis:formatName>
           </premis:formatDesignation>
         </premis:format>
+        <premis:significantProperties>
+          <premis:significantPropertiesType>technical_and_behavioral_fidelity</premis:significantPropertiesType>
+          <premis:significantPropertiesValue>Da definire in fase di analisi curatoriale</premis:significantPropertiesValue>
+        </premis:significantProperties>
       </premis:objectCharacteristics>
     </premis:object>
     <premis:environment>
@@ -68,10 +66,38 @@
         <premis:eventIdentifierValue>EVT-1207658713-001</premis:eventIdentifierValue>
       </premis:eventIdentifier>
       <premis:eventType>metadata extraction and fixity calculation</premis:eventType>
-      <premis:eventDateTime>2026-11-12T15:03:04.459250+00:00</premis:eventDateTime>
+      <premis:eventDateTime>2026-11-13T12:50:10.695882+00:00</premis:eventDateTime>
+    </premis:event>
+    <premis:event>
+      <premis:eventIdentifier>
+        <premis:eventIdentifierType>local</premis:eventIdentifierType>
+        <premis:eventIdentifierValue>EVT-1207658713-PLAN</premis:eventIdentifierValue>
+      </premis:eventIdentifier>
+      <premis:eventType>preservation planning [Risk: MEDIO]</premis:eventType>
+      <premis:eventDateTime>2026-11-13T12:50:10.695882+00:00</premis:eventDateTime>
       <premis:eventDetailInformation>
-        <premis:eventDetail>Engine identified via: Firme estensioni (.tgx, .gm1, .aiv)</premis:eventDetail>
+        <premis:eventDetail>Pianificazione tecnica pendente (valutazione caso per caso)</premis:eventDetail>
       </premis:eventDetailInformation>
     </premis:event>
+    <premis:rights>
+      <premis:rightsStatement>
+        <premis:rightsStatementIdentifier>
+          <premis:rightsStatementIdentifierType>local</premis:rightsStatementIdentifierType>
+          <premis:rightsStatementIdentifierValue>RTS-1207658713-001</premis:rightsStatementIdentifierValue>
+        </premis:rightsStatementIdentifier>
+        <premis:rightsBasis>license</premis:rightsBasis>
+        <premis:licenseInformation>
+          <premis:licenseDocumentationIdentifier>
+            <premis:licenseDocumentationIdentifierType>distributor_policy</premis:licenseDocumentationIdentifierType>
+            <premis:licenseDocumentationIdentifierValue>GOG DRM-Free End User License Agreement</premis:licenseDocumentationIdentifierValue>
+          </premis:licenseDocumentationIdentifier>
+          <premis:licenseTerms>Licenza commerciale personale DRM-free. Detentore diritti: GOG.com (Distributore) / Copyright © 2002</premis:licenseTerms>
+        </premis:licenseInformation>
+        <premis:rightsGranted>
+          <premis:act>replicate / migrate / emulate</premis:act>
+          <premis:restriction>Uso strettamente personale e di preservazione privata; vietata la ridistribuzione pubblica dei binari.</premis:restriction>
+        </premis:rightsGranted>
+      </premis:rightsStatement>
+    </premis:rights>
   </premis:premis>
 </archivio:record>

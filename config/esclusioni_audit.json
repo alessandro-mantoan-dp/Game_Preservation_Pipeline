@@ -1,0 +1,24 @@
+{
+  "cartelle_escluse": [
+    "save",
+    "saves",
+    "savegame",
+    "savegames",
+    "profiles",
+    "userdata",
+    "screenshots",
+    "logs",
+    "cache",
+    "temp"
+  ],
+  "estensioni_escluse": [
+    ".sav",
+    ".save",
+    ".bak",
+    ".log",
+    ".tmp"
+  ],
+  "file_esclusi": [
+    "goggame-*.hashdb"
+  ]
+}

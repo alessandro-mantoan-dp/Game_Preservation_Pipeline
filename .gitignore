@@ -11,3 +11,7 @@ __pycache__/
 *.py[cod]
 .venv/
 venv/
+
+output_aip/
+
+output_reports/
