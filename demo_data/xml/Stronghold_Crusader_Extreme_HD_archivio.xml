@@ -21,9 +21,9 @@
     </mods:originInfo>
     <mods:physicalDescription>
       <mods:digitalOrigin>born digital</mods:digitalOrigin>
-      <mods:extent>3730 files (842.74 MB)</mods:extent>
+      <mods:extent>3729 files (841.71 MB)</mods:extent>
     </mods:physicalDescription>
-    <mods:note type="technical composition">File formats composition: .wav (2518), .tgx (471), .gm1 (199), .map (143), .aiv (128), .bik (122), .raw (81), .mp3 (12), .html (8), .ani (6), .pdf (5), .cur (4), .dll (4), .exe (4), .ico (3), .ini (3), .cfg (2), .dat (2), .hlp (2), .sav (1), .tex (1), .csv (1), .bmp (1), .hashdb (1), .id (1), .info (1), .script (1), .lnk (1), .doc (1), .msg (1), .txt (1), .png (1)</mods:note>
+    <mods:note type="technical composition">File formats composition: .wav (2518), .tgx (471), .gm1 (199), .map (143), .aiv (128), .bik (122), .raw (81), .mp3 (12), .html (8), .ani (6), .pdf (5), .cur (4), .dll (4), .exe (4), .ico (3), .ini (3), .cfg (2), .dat (2), .hlp (2), .tex (1), .csv (1), .bmp (1), .hashdb (1), .id (1), .info (1), .script (1), .lnk (1), .doc (1), .msg (1), .txt (1), .png (1)</mods:note>
   </mods:mods>
   <premis:premis version="3.0">
     <premis:object xsi:type="premis:file">
@@ -66,15 +66,15 @@
         <premis:eventIdentifierValue>EVT-1207658713-001</premis:eventIdentifierValue>
       </premis:eventIdentifier>
       <premis:eventType>metadata extraction and fixity calculation</premis:eventType>
-      <premis:eventDateTime>2026-11-13T12:50:10.695882+00:00</premis:eventDateTime>
+      <premis:eventDateTime>2026-11-13T16:02:09.255812+00:00</premis:eventDateTime>
     </premis:event>
     <premis:event>
       <premis:eventIdentifier>
         <premis:eventIdentifierType>local</premis:eventIdentifierType>
         <premis:eventIdentifierValue>EVT-1207658713-PLAN</premis:eventIdentifierValue>
       </premis:eventIdentifier>
-      <premis:eventType>preservation planning [Risk: MEDIO]</premis:eventType>
-      <premis:eventDateTime>2026-11-13T12:50:10.695882+00:00</premis:eventDateTime>
+      <premis:eventType>preservation planning [Risk: Da valutare]</premis:eventType>
+      <premis:eventDateTime>2026-11-13T16:02:09.255812+00:00</premis:eventDateTime>
       <premis:eventDetailInformation>
         <premis:eventDetail>Pianificazione tecnica pendente (valutazione caso per caso)</premis:eventDetail>
       </premis:eventDetailInformation>

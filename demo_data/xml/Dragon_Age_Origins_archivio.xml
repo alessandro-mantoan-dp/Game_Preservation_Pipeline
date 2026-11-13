@@ -27,9 +27,9 @@
     </mods:originInfo>
     <mods:physicalDescription>
       <mods:digitalOrigin>born digital</mods:digitalOrigin>
-      <mods:extent>32429 files (60452.8 MB)</mods:extent>
+      <mods:extent>32418 files (60452.76 MB)</mods:extent>
     </mods:physicalDescription>
-    <mods:note type="technical composition">File formats composition: .rim (10009), .fsb (9052), .fev (9020), .tlk (1501), .erf (643), .htm (598), .gif (453), .arl (216), .jpg (152), .opf (132), .bik (85), .dll (70), .cur (70), .cif (49), .xml (45), .dds (43), .bmp (43), .css (35), .rtf (32), .ini (29), .js (29), .txt (27), .exe (16), .log (11), .msp (9), .cub (8), .cut (8), .ico (6), .bin (6), .dat (5), .hhk (2), .lng (2), .msi (2), .hashdb (1), .info (1), .script (1), .lnk (1), .pdf (1), .cmd (1), .msg (1), .wma (1), .wav (1), .ews (1), .glo (1), .hhc (1), .ppf (1), .stp (1), .syn (1), .cab (1), .jar (1), .skn (1), .chm (1), .sdb (1), .pdi (1)</mods:note>
+    <mods:note type="technical composition">File formats composition: .rim (10009), .fsb (9052), .fev (9020), .tlk (1501), .erf (643), .htm (598), .gif (453), .arl (216), .jpg (152), .opf (132), .bik (85), .dll (70), .cur (70), .cif (49), .xml (45), .dds (43), .bmp (43), .css (35), .rtf (32), .ini (29), .js (29), .txt (27), .exe (16), .msp (9), .cub (8), .cut (8), .ico (6), .bin (6), .dat (5), .hhk (2), .lng (2), .msi (2), .hashdb (1), .info (1), .script (1), .lnk (1), .pdf (1), .cmd (1), .msg (1), .wma (1), .wav (1), .ews (1), .glo (1), .hhc (1), .ppf (1), .stp (1), .syn (1), .cab (1), .jar (1), .skn (1), .chm (1), .sdb (1), .pdi (1)</mods:note>
   </mods:mods>
   <premis:premis version="3.0">
     <premis:object xsi:type="premis:file">
@@ -72,15 +72,15 @@
         <premis:eventIdentifierValue>EVT-1949616134-001</premis:eventIdentifierValue>
       </premis:eventIdentifier>
       <premis:eventType>metadata extraction and fixity calculation</premis:eventType>
-      <premis:eventDateTime>2026-11-13T12:39:28.283011+00:00</premis:eventDateTime>
+      <premis:eventDateTime>2026-11-13T16:02:02.080460+00:00</premis:eventDateTime>
     </premis:event>
     <premis:event>
       <premis:eventIdentifier>
         <premis:eventIdentifierType>local</premis:eventIdentifierType>
         <premis:eventIdentifierValue>EVT-1949616134-PLAN</premis:eventIdentifierValue>
       </premis:eventIdentifier>
-      <premis:eventType>preservation planning [Risk: MEDIO]</premis:eventType>
-      <premis:eventDateTime>2026-11-13T12:39:28.283011+00:00</premis:eventDateTime>
+      <premis:eventType>preservation planning [Risk: Da valutare]</premis:eventType>
+      <premis:eventDateTime>2026-11-13T16:02:02.080460+00:00</premis:eventDateTime>
       <premis:eventDetailInformation>
         <premis:eventDetail>Pianificazione tecnica pendente (valutazione caso per caso)</premis:eventDetail>
       </premis:eventDetailInformation>

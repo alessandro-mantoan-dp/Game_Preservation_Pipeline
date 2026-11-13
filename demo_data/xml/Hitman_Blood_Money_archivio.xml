@@ -71,15 +71,15 @@
         <premis:eventIdentifierValue>EVT-1942346586-001</premis:eventIdentifierValue>
       </premis:eventIdentifier>
       <premis:eventType>metadata extraction and fixity calculation</premis:eventType>
-      <premis:eventDateTime>2026-11-13T12:49:47.718833+00:00</premis:eventDateTime>
+      <premis:eventDateTime>2026-11-13T16:02:08.048528+00:00</premis:eventDateTime>
     </premis:event>
     <premis:event>
       <premis:eventIdentifier>
         <premis:eventIdentifierType>local</premis:eventIdentifierType>
         <premis:eventIdentifierValue>EVT-1942346586-PLAN</premis:eventIdentifierValue>
       </premis:eventIdentifier>
-      <premis:eventType>preservation planning [Risk: MEDIO]</premis:eventType>
-      <premis:eventDateTime>2026-11-13T12:49:47.718833+00:00</premis:eventDateTime>
+      <premis:eventType>preservation planning [Risk: Da valutare]</premis:eventType>
+      <premis:eventDateTime>2026-11-13T16:02:08.048528+00:00</premis:eventDateTime>
       <premis:eventDetailInformation>
         <premis:eventDetail>Pianificazione tecnica pendente (valutazione caso per caso)</premis:eventDetail>
       </premis:eventDetailInformation>

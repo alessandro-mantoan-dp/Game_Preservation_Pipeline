@@ -94,21 +94,6 @@ def carica_override_manuali(percorso_override: Path) -> dict:
             return json.load(f)
     return {}
 
-def valuta_rischio_obsolescenza(architettura: str, anno_str: str) -> str:
-    """
-    Calcola automaticamente il livello di rischio tecnico di base
-    in attesa dell'analisi curatoriale approfondita.
-    """
-    anno = int(anno_str[:4]) if (anno_str and len(anno_str) >= 4 and anno_str[:4].isdigit()) else 2010
-    is_32bit = "32-bit" in (architettura or "")
-
-    if anno < 2005 and is_32bit:
-        return "ALTO"
-    elif is_32bit or anno < 2012:
-        return "MEDIO"
-    else:
-        return "BASSO"
-
 def genera_xml_da_json(file_json: Path, cartella_out: Path, file_override: Path):
     if not file_json.exists():
         return
@@ -189,7 +174,7 @@ def genera_xml_da_json(file_json: Path, cartella_out: Path, file_override: Path)
     aggiungi_elemento(fmt_des, NS_PREMIS, "formatName", f"Windows Portable Executable ({pe.get('architettura')})")
 
     # Proprietà Significative e Pianificazione della Preservazione
-    rischio_calc = valuta_rischio_obsolescenza(pe.get("architettura"), data_storica_finale)
+    rischio_finale = (dati_curati.get("livello_rischio") or "").strip() or "Da valutare"
     prop_significative = (dati_curati.get("significant_properties") or "").strip() or "Da definire in fase di analisi curatoriale"
     strategia_finale = (dati_curati.get("strategia_preservazione") or "").strip() or "Pianificazione tecnica pendente (valutazione caso per caso)"
 
@@ -220,7 +205,7 @@ def genera_xml_da_json(file_json: Path, cartella_out: Path, file_override: Path)
     ev_plan_id = aggiungi_elemento(evento_plan, NS_PREMIS, "eventIdentifier")
     aggiungi_elemento(ev_plan_id, NS_PREMIS, "eventIdentifierType", "local")
     aggiungi_elemento(ev_plan_id, NS_PREMIS, "eventIdentifierValue", f"EVT-{gog_id_str}-PLAN")
-    aggiungi_elemento(evento_plan, NS_PREMIS, "eventType", f"preservation planning [Risk: {rischio_calc}]")
+    aggiungi_elemento(evento_plan, NS_PREMIS, "eventType", f"preservation planning [Risk: {rischio_finale}]")
     aggiungi_elemento(evento_plan, NS_PREMIS, "eventDateTime", proc.get("data_estrazione_utc"))
     ev_detail_info = aggiungi_elemento(evento_plan, NS_PREMIS, "eventDetailInformation")
     aggiungi_elemento(ev_detail_info, NS_PREMIS, "eventDetail", strategia_finale)
