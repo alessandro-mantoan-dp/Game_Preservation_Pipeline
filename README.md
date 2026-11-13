@@ -71,7 +71,7 @@ Game_Preservation_Pipeline/
    ```json
    {
        "gog_library_path": "C:\\Program Files\\GOG Galaxy\\Games",
-       "gog_installers_path": "D:\(\Game_Installer\)"
+       "gog_installers_path": "D:\\Game_Installer"
    }
    ```
 
